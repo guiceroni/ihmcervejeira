@@ -1,12 +1,11 @@
 from tkinter import *
-#import firedb
+import firedb
 
 key = "7745"
 data = ""
 
 def conta():
-	val = "0"
-	#firedb.getConta(key)
+	val = firedb.getConta(key)
 	if val == "0":
 		lbResul["text"] = "Nao foi encontrada conta vinculada com essa maquina"
 		lbExpl["text"] = "Faca o cadastro pelo aplicativo"
@@ -16,7 +15,7 @@ def conta():
 		pri.destroy()
 	
 def data():
-	pass#data = firedb.getData(key)
+	data = firedb.getData(key)
 	
 def sim():
 	seg.destroy()
