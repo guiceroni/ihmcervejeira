@@ -64,7 +64,7 @@ img = Label(root, image=imagem)
 img.imagem = imagem
 img.place(x=0, y=0)
 
-margem = Label(pri, height=7)
+margem = Label(root, height=7)
 margem.pack(anchor=W)
 
 root.geometry("800x480+200+200")
