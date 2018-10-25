@@ -5,7 +5,7 @@ from tkinter.ttk import Combobox
 
 class principal:
 
-    wr_escolhe_temp: Combobox
+    
 
     def __init__(self, janela=None):
         self.janela = Label(janela, text="Bem Vindo a sua Cervejeira")
