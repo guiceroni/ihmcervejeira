@@ -40,7 +40,7 @@ class principal:
         self.wr_qtde_rampas = ttk.Combobox(rec_nova, width=20)
         self.wr_qtde_rampas['values'] = ("1", "2", "3", "4", "5", "6", "7")
         self.wr_qtde_rampas.place(x=400, y=195)
-        #self.wr_qtade_rampa.Value()= self.conf_qtade
+        
         self.bt_confirma_recnova = Button(rec_nova, text="Confirmar", width=40, height=5, command=self.conf_rampas)
         self.bt_confirma_recnova.place(x=150, y=300)
         self.bt_cancela_recnova = Button(rec_nova, text="Cancelar", width=30, height=5, command=rec_nova.destroy)
