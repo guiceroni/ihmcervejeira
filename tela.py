@@ -1,11 +1,10 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter.ttk import Combobox
-from conf_rampas import *
 
 limite = 1
-limite_maior = -5
-
+limite_max =95
+limite_rampas=3
 
 class principal:
 
@@ -37,6 +36,8 @@ class principal:
     def bt_soma(self):
         
         rampa =int(self.lb_rp["text"])
+        if rampa >= 3:
+        	rampa = limite_rampas
         self.lb_rp["text"] = int(rampa + 1)
 
         arq = open("rampas.txt", "w")
@@ -59,6 +60,8 @@ class principal:
     def bt_soma_temp1(self):
         
         temperatura =int(self.lb_temp["text"])
+        if temperatura >= limite:
+            temperatura = limite + 1
         self.lb_temp["text"] = int(temperatura + 5)
 
         arq = open("temperatura1.txt", "w")
@@ -100,6 +103,28 @@ class principal:
         arq.close()
         print(temperatura2)
 
+    def bt_soma_temp3(self):
+        
+        temperatura3 =int(self.lb_temp3["text"])
+        self.lb_temp3["text"] = int(temperatura3 + 5)
+
+        arq = open("temperatura3.txt", "w")
+        arq.write(str(temperatura3))
+        arq.close()
+        print(temperatura3)
+
+    def bt_subtracao_temp3(self):
+        
+        temperatura3 =int(self.lb_temp3["text"])
+        if temperatura3 <= limite:
+            temperatura3 = limite + 4
+        self.lb_temp3["text"] = int(temperatura3 - 5)
+
+        arq = open("temperatura3.txt", "w")
+        arq.write(str(temperatura3))
+        arq.close()
+        print(temperatura3)
+
     def bt_soma_time1(self):
         
         tempo =int(self.lb_tempo["text"])
@@ -139,11 +164,35 @@ class principal:
             tempo2 = limite + 4
         self.lb_tempo2["text"] = int(tempo2 - 5)
 
-        arq = open("tempo1.txt", "w")
+        arq = open("tempo2.txt", "w")
         arq.write(str(tempo2))
         arq.close()
         print(tempo2)
         
+
+    def bt_soma_time3(self):
+        
+        tempo3 =int(self.lb_tempo3["text"])
+        self.lb_tempo3["text"] = int(tempo3 + 5)
+
+        arq = open("tempo3.txt", "w")
+        arq.write(str(tempo3))
+        arq.close()
+        print(tempo3)
+
+    def bt_subtracao_time3(self):
+        
+        tempo3 =int(self.lb_tempo3["text"])
+        if tempo3 <= limite:
+            tempo3 = limite + 4
+        self.lb_tempo3["text"] = int(tempo3 - 5)
+
+        arq = open("tempo3.txt", "w")
+        arq.write(str(tempo3))
+        arq.close()
+        print(tempo3)
+
+
 
     def receita_nova(self):
         rec_nova = Tk()
@@ -208,22 +257,22 @@ class principal:
             self.bt_subtracao_temp = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_temp1)
             self.bt_subtracao_temp.place(x=340, y=140)            
             self.lb_rampa_tempo1=Label(conf_rampas,text="Tempo Rampa 1(min): ",font="Arial 15")
-            self.lb_rampa_tempo1.place(x=40,y=190)
+            self.lb_rampa_tempo1.place(x=400,y=140)
             self.lb_tempo = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_tempo.place(x=260, y=190)
+            self.lb_tempo.place(x=620, y=140)
             self.bt_soma_tempo = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_time1)
-            self.bt_soma_tempo.place(x=300, y=190)        
+            self.bt_soma_tempo.place (x=660, y=140)      
             self.bt_subtracao_tempo = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_time1)
-            self.bt_subtracao_tempo.place(x=340, y=190)
+            self.bt_subtracao_tempo.place(x=700, y=140)
 
             self.lb_rampa2=Label(conf_rampas,text="Temperatura Rampa 2: ",font="Arial 15")
-            self.lb_rampa2.place(x=400,y=140)            
+            self.lb_rampa2.place(x=40,y=190)           
             self.lb_temp2 = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_temp2.place(x=620, y=140)
+            self.lb_temp2.place(x=260, y=190)
             self.bt_soma_temp2 = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_temp2)
-            self.bt_soma_temp2.place(x=660, y=140)        
+            self.bt_soma_temp2.place(x=300, y=190)        
             self.bt_subtracao_temp2 = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_temp2)
-            self.bt_subtracao_temp2.place(x=700, y=140)            
+            self.bt_subtracao_temp2.place (x=340, y=190)           
             self.lb_rampa_tempo2=Label(conf_rampas,text="Tempo Rampa 2(min): ",font="Arial 15")
             self.lb_rampa_tempo2.place(x=400,y=190)
             self.lb_tempo2 = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
@@ -235,37 +284,55 @@ class principal:
 
         elif conf_rampa == 3:
             self.lb_rampa1=Label(conf_rampas,text="Temperatura Rampa 1: ",font="Arial 15")
-            self.lb_rampa1.place(x=180,y=100)
-            self.wr_escolhe_temp = ttk.Combobox(conf_rampas, width=20)
-            self.wr_escolhe_temp['values'] = ("45ºC", "46ºC", "47ºC", "48ºC", "49ºC", "50ºC", "51ºC", "52ºC", "53ºC", "54ºC", "55ºC", "56ºC", "57ºC", "58ºC", "59ºC", "60ºC", "61ºC", "62ºC", "63ºC", "64ºC", "65ºC", "66ºC", "67ºC", "68ºC", "69ºC","70ºC","71ºC","72ºC","73ºC","74ºC","75ºC","76ºC","77ºC","78ºC","79ºC","80ºC","81ºC","82ºC","83ºC","84ºC","85ºC")
-            self.wr_escolhe_temp.place(x=400, y=105)
-            self.lb_rampa_tempo1=Label(conf_rampas,text="Tempo para Rampa 1: ",font="Arial 15")
-            self.lb_rampa_tempo1.place(x=180,y=130)
-            self.wr_seleciona_tempo = ttk.Combobox(conf_rampas, width=20)
-            self.wr_seleciona_tempo['values'] = ("5min", "10min", "15min","20min", "25min", "30min", "35min", "40min", "45min", "50min", "55min", "60min", "65min", "70min", "75min", "80min", "85min", "90min", "95min", "100min")
-            self.wr_seleciona_tempo.place(x=400, y=135)
+            self.lb_rampa1.place(x=40,y=140)            
+            self.lb_temp = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
+            self.lb_temp.place(x=260, y=140)
+            self.bt_soma_temp = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_temp1)
+            self.bt_soma_temp.place(x=300, y=140)        
+            self.bt_subtracao_temp = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_temp1)
+            self.bt_subtracao_temp.place(x=340, y=140)            
+            self.lb_rampa_tempo1=Label(conf_rampas,text="Tempo Rampa 1(min): ",font="Arial 15")
+            self.lb_rampa_tempo1.place(x=400,y=140)
+            self.lb_tempo = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
+            self.lb_tempo.place(x=620, y=140)
+            self.bt_soma_tempo = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_time1)
+            self.bt_soma_tempo.place(x=660, y=140)      
+            self.bt_subtracao_tempo = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_time1)
+            self.bt_subtracao_tempo.place(x=700, y=140)
 
             self.lb_rampa2=Label(conf_rampas,text="Temperatura Rampa 2: ",font="Arial 15")
-            self.lb_rampa2.place(x=180,y=220)
-            self.wr_escolhe_temp2 = ttk.Combobox(conf_rampas, width=20)
-            self.wr_escolhe_temp2['values'] = ("45ºC", "46ºC", "47ºC", "48ºC", "49ºC", "50ºC", "51ºC", "52ºC", "53ºC", "54ºC", "55ºC", "56ºC", "57ºC", "58ºC", "59ºC", "60ºC", "61ºC", "62ºC", "63ºC", "64ºC", "65ºC", "66ºC", "67ºC", "68ºC", "69ºC","70ºC","71ºC","72ºC","73ºC","74ºC","75ºC","76ºC","77ºC","78ºC","79ºC","80ºC","81ºC","82ºC","83ºC","84ºC","85ºC")
-            self.wr_escolhe_temp2.place(x=400, y=205)
-            self.lb_rampa_tempo2=Label(conf_rampas,text="Tempo para Rampa 2: ",font="Arial 15")
-            self.lb_rampa_tempo2.place(x=180,y=200)
-            self.wr_seleciona_tempo2 = ttk.Combobox(conf_rampas, width=20)
-            self.wr_seleciona_tempo2['values'] = ("5min", "10min", "15min","20min", "25min", "30min", "35min", "40min", "45min", "50min", "55min", "60min", "65min", "70min", "75min", "80min", "85min", "90min", "95min", "100min")
-            self.wr_seleciona_tempo2.place(x=400, y=205)
+            self.lb_rampa2.place(x=40,y=190)            
+            self.lb_temp2 = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
+            self.lb_temp2.place(x=260, y=190)
+            self.bt_soma_temp2 = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_temp2)
+            self.bt_soma_temp2.place (x=300, y=190)        
+            self.bt_subtracao_temp2 = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_temp2)
+            self.bt_subtracao_temp2.place(x=340, y=190)            
+            self.lb_rampa_tempo2=Label(conf_rampas,text="Tempo Rampa 2(min): ",font="Arial 15")
+            self.lb_rampa_tempo2.place(x=400,y=190)
+            self.lb_tempo2 = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
+            self.lb_tempo2.place(x=620, y=190)
+            self.bt_soma_tempo2 = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_time2)
+            self.bt_soma_tempo2.place(x=660, y=190)        
+            self.bt_subtracao_tempo2 = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_time2)
+            self.bt_subtracao_tempo2.place(x=700, y=190)
 
             self.lb_rampa3=Label(conf_rampas,text="Temperatura Rampa 3: ",font="Arial 15")
-            self.lb_rampa3.place(x=180,y=220)
-            self.wr_escolhe_temp3 = ttk.Combobox(conf_rampas, width=20)
-            self.wr_escolhe_temp3['values'] = ("45ºC", "46ºC", "47ºC", "48ºC", "49ºC", "50ºC", "51ºC", "52ºC", "53ºC", "54ºC", "55ºC", "56ºC", "57ºC", "58ºC", "59ºC", "60ºC", "61ºC", "62ºC", "63ºC", "64ºC", "65ºC", "66ºC", "67ºC", "68ºC", "69ºC","70ºC","71ºC","72ºC","73ºC","74ºC","75ºC","76ºC","77ºC","78ºC","79ºC","80ºC","81ºC","82ºC","83ºC","84ºC","85ºC")
-            self.wr_escolhe_temp3.place(x=400, y=225)
-            self.lb_rampa_tempo3=Label(conf_rampas,text="Tempo para Rampa 2: ",font="Arial 15")
-            self.lb_rampa_tempo3.place(x=180,y=250)
-            self.wr_seleciona_tempo3 = ttk.Combobox(conf_rampas, width=20)
-            self.wr_seleciona_tempo3['values'] = ("5min", "10min", "15min","20min", "25min", "30min", "35min", "40min", "45min", "50min", "55min", "60min", "65min", "70min", "75min", "80min", "85min", "90min", "95min", "100min")
-            self.wr_seleciona_tempo3.place(x=400, y=255)
+            self.lb_rampa3.place(x=40,y=240)            
+            self.lb_temp3 = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
+            self.lb_temp3.place(x=260, y=240)
+            self.bt_soma_temp3 = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_temp3)
+            self.bt_soma_temp3.place(x=300, y=240)        
+            self.bt_subtracao_temp3 = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_temp3)
+            self.bt_subtracao_temp3.place(x=340, y=240)            
+            self.lb_rampa_tempo3=Label(conf_rampas,text="Tempo Rampa 3(min): ",font="Arial 15")
+            self.lb_rampa_tempo3.place(x=400,y=240)
+            self.lb_tempo3 = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
+            self.lb_tempo3.place(x=620, y=240)
+            self.bt_soma_tempo3 = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_time3)
+            self.bt_soma_tempo3.place(x=660, y=240)        
+            self.bt_subtracao_tempo3 = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_time3)
+            self.bt_subtracao_tempo3.place(x=700, y=240)
                
         
         self.bt_confirma_temp = Button(conf_rampas, text="Confirmar", width=40, height=5, command=self.conf_fervura)
