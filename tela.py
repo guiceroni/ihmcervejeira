@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter.ttk import Combobox
-from conf_rampas import *
 
 limite = 1
 
