@@ -1,5 +1,6 @@
 import pyrebase
 
+
 config = {
     "apiKey": "AIzaSyB7hqzc1Ml6d9uGUYRLF1Iad6J6QiTWjSM",
     "authDomain": "loginemail-a0eb8.firebaseapp.com",
@@ -15,8 +16,11 @@ db = firebase.database()
 
 def getConta(key):
 	print("***Def getConta***")
+	print(key)
 	data = db.child("maquinas/" + key).get()
-
+	
+	print(data.val())
+	
 	for user in data.each():
 		conta = user.val()
 
@@ -32,7 +36,6 @@ def getData(key):
 	for user in data.each():
 		resul = user.val()
 
-	print(resul)
 	return resul
 
 '''data = {"conta": "0"}

@@ -1,7 +1,7 @@
 from tkinter import *
 import firedb
 
-key = "7745"
+key = "7757"
 data = ""
 
 def conta():
@@ -29,6 +29,7 @@ def ok():
 	
 def checaSensores():
 	print(btnOk["state"])
+	#firedb.pushData(key, PEGAR VALOR DO SENSOR)
 	if(btnOk["state"] == "disabled"):
 		ter.after(1000, checaSensores)
 
@@ -83,6 +84,8 @@ seg.mainloop()
 
 ##################  TERCEIRA TELA  ##################  
 
+data = firedb.getData(key)
+
 ter = Tk()
 imagem = PhotoImage(file="TelaIHM.png")
 img = Label(ter, image=imagem)
@@ -92,20 +95,25 @@ img.place(x=0, y=0)
 margem_ter = Label(ter, height=7)
 margem_ter.pack(anchor=W)
 
+lbNome = Label(ter, text = data['name'], font=("Arial",15,"bold"))
+lbNome.pack()
+lbNome['text'] = data['name']
 lbTemp = Label(ter, text="Temperatura atual do processo:", font=("Arial",20,"bold"))
 lbTemp.pack()
-Temp = Label(ter, text="22", font=("Arial",30,"bold"))
+Temp = Label(ter, text=data['tempAtual'], font=("Arial",30,"bold"))
 Temp.pack()
 lbGraus = Label(ter, text="C", font=("Arial",30,"bold"))
 lbGraus.place(x=450,y=135)
 lbRamp = Label(ter, text="Rampa atual:", font=("Arial",15,"bold"))
 lbRamp.pack()
-Ramp = Label(ter, text="2", font=("Arial",15,"bold"))
+Ramp = Label(ter, text=data['rampAtual'], font=("Arial",15,"bold"))
 Ramp.place(x=480,y=183)
 Aviso = Label(ter, text ="Para mais informacoes consulte o app", font=("Arial",20,"bold"), height=2)
 Aviso.pack()
 btnOk = Button(ter, text="OK", font=("Arial",20,"bold"), width=10, height=2, command=ok, state=DISABLED)
 btnOk.pack()
+
+
 
 ter.after(100, checaSensores)
 
