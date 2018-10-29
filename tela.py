@@ -5,6 +5,7 @@ from tkinter.ttk import Combobox
 limite = 1
 limite_max =95
 limite_rampas=3
+limite_lupulo=2
 
 class principal:
 
@@ -220,12 +221,14 @@ class principal:
     def bt_soma_lupulo1(self):
         
         lupulo1 =int(self.lb_lupulo1["text"])
+        if lupulo1 >= 2:
+        	lupulo1 = limite_lupulo
         self.lb_lupulo1["text"] = int(lupulo1 + 1)
 
         arq = open("lupulo1.txt", "w")
         arq.write(str(lupulo1))
         arq.close()
-        print(lupulo1)
+        
 
     def bt_subtracao_lupulo1(self):
         
@@ -433,10 +436,10 @@ class principal:
         self.bt_cancela_rampas.place(x=450, y=300)
         conf_rampas.geometry("800x480+200+200")
 
-   
 
     def conf_fervura(self):
-                
+
+                     
         conf_fervura = Tk()
         conf_fervura.title("Automação Brassagem e Fervura")
         self.lb_conf_fervura = Label(conf_fervura, text="Configure a fervura", font="Arial 20")
@@ -457,51 +460,65 @@ class principal:
         self.lb_lupulo1.place(x=360, y=160)
         self.bt_soma_lupulo1 = Button(conf_fervura, width=4, height =2, text="+", command= self.bt_soma_lupulo1)
         self.bt_soma_lupulo1.place(x=400, y=160)
+                
         self.bt_subtracao_lupulo1 = Button(conf_fervura, width=4, height=2, text="-", command= self.bt_subtracao_lupulo1)        
         self.bt_subtracao_lupulo1.place(x=440, y=160)
-        
-        '''
-        if lb_lupulo1 == "1":
-            self.lb_conf_fervura_lup1=Label(conf_fervura,text="Tempo lupulo 1: ",font="Arial 15")
-            self.lb_conf_fervura_lup1.place(x=180,y=210)
-            self.lb_tempolup1 = Label(conf_fervura,text="0",font="Arial 20", fg= "black")
-            self.lb_tempolup1.place(x=360, y=210)
-            self.bt_soma_lup1 = Button(conf_fervura, width=4, height =2, text="+", command= self.bt_soma_timelup1)
-            self.bt_soma_lup1.place(x=400, y=210)        
-            self.bt_subtracao_lup1 = Button(conf_fervura, width=4, height=2, text="-", command= self.bt_subtracao_timelup1)        
 
-        '''
-
-        '''
-        #if lb_lupulo1 == "2":
-
-            self.lb_conf_fervura_lup1=Label(conf_fervura,text="Tempo lupulo 1: ",font="Arial 15")
-            self.lb_conf_fervura_lup1.place(x=180,y=210)
-            self.lb_tempolup1 = Label(conf_fervura,text="0",font="Arial 20", fg= "black")
-            self.lb_tempolup1.place(x=360, y=210)
-            self.bt_soma_lup1 = Button(conf_fervura, width=4, height =2, text="+", command= self.bt_soma_timelup1)
-            self.bt_soma_lup1.place(x=400, y=210)        
-            self.bt_subtracao_lup1 = Button(conf_fervura, width=4, height=2, text="-", command= self.bt_subtracao_timelup1)
-            
-            self.lb_conf_fervura_lup2=Label(conf_fervura,text="Tempo lupulo 2: ",font="Arial 15")
-            self.lb_conf_fervura_lup2.place(x=180,y=250)
-            self.lb_tempolup2 = Label(conf_fervura,text="0",font="Arial 20", fg= "black")
-            self.lb_tempolup2.place(x=360, y=250)
-            self.bt_soma_lup2 = Button(conf_fervura, width=4, height =2, text="+", command= self.bt_soma_timelup2)
-            self.bt_soma_lup2.place(x=400, y=250)        
-            self.bt_subtracao_lup2 = Button(conf_fervura, width=4, height=2, text="-", command= self.bt_subtracao_timelup2)        
-
-
-        '''
-
-
-        self.bt_confirma_temp = Button(conf_fervura, text="Iniciar Processo", width=40, height=5)
-        
+        self.bt_confirma_temp = Button(conf_fervura, text="Continuar", width=40, height=5, command = self.conf_lupulo)      
 	
         self.bt_confirma_temp.place(x=150, y=300)
         self.bt_cancela_rampas = Button(conf_fervura, text="Cancelar", width=30, height=5, command=conf_fervura.destroy)
         self.bt_cancela_rampas.place(x=450, y=300)
         conf_fervura.geometry("800x480+200+200")
+        
+    def conf_lupulo(self):
+
+        lupulo1 = open("lupulo1.txt")
+        lupulo1 = int(lupulo1.read())
+        print(lupulo1)
+
+        conf_lupulo= Tk()
+        conf_lupulo.title("Automação Brassagem e Fervura")
+        self.lb_conf_lupulo = Label(conf_lupulo, text="Configure o tempo dos lupulos", font="Arial 20")
+        self.lb_conf_lupulo.place(x=270, y=60)        
+        
+        if lupulo1 == 1:
+            self.lb_conf_fervura_lup1=Label(conf_lupulo,text="Tempo lupulo 1: ",font="Arial 15")
+            self.lb_conf_fervura_lup1.place(x=180,y=130)
+            self.lb_tempolup1 = Label(conf_lupulo,text="0",font="Arial 20", fg= "black")
+            self.lb_tempolup1.place(x=350, y=130)
+            self.bt_soma_lup1 = Button(conf_lupulo, width=4, height =2, text="+", command= self.bt_soma_timelup1)
+            self.bt_soma_lup1.place(x=400, y=130)        
+            self.bt_subtracao_lup1 = Button(conf_lupulo, width=4, height=2, text="-", command= self.bt_subtracao_timelup1)
+            self.bt_subtracao_lup1.place(x=400, y=130)
+
+        
+        elif lupulo1 == 2:
+
+            self.lb_conf_fervura_lup1=Label(conf_lupulo,text="Tempo lupulo 1: ",font="Arial 15")
+            self.lb_conf_fervura_lup1.place(x=180,y=130)
+            self.lb_tempolup1 = Label(conf_lupulo,text="0",font="Arial 20", fg= "black")
+            self.lb_tempolup1.place(x=350, y=130)
+            self.bt_soma_lup1 = Button(conf_lupulo, width=4, height =2, text="+", command= self.bt_soma_timelup1)
+            self.bt_soma_lup1.place(x=400, y=130)        
+            self.bt_subtracao_lup1 = Button(conf_lupulo, width=4, height=2, text="-", command= self.bt_subtracao_timelup1)
+            self.bt_subtracao_lup1.place(x=440, y=130)
+            
+            self.lb_conf_fervura_lup2=Label(conf_lupulo,text="Tempo lupulo 2: ",font="Arial 15")
+            self.lb_conf_fervura_lup2.place(x=180,y=180)
+            self.lb_tempolup2 = Label(conf_lupulo,text="0",font="Arial 20", fg= "black")
+            self.lb_tempolup2.place(x=350, y=180)
+            self.bt_soma_lup2 = Button(conf_lupulo, width=4, height =2, text="+", command= self.bt_soma_timelup2)
+            self.bt_soma_lup2.place(x=400, y=180)        
+            self.bt_subtracao_lup2 = Button(conf_lupulo, width=4, height=2, text="-", command= self.bt_subtracao_timelup2)
+            self.bt_subtracao_lup2.place(x=440, y=180)
+
+        self.bt_confirma_temp = Button(conf_lupulo, text="Iniciar Processo", width=40, height=5)       
+	
+        self.bt_confirma_temp.place(x=150, y=300)
+        self.bt_cancela_rampas = Button(conf_lupulo, text="Cancelar", width=30, height=5, command=conf_lupulo.destroy)
+        self.bt_cancela_rampas.place(x=450, y=300)
+        conf_lupulo.geometry("800x480+200+200")
         
         
 
