@@ -193,6 +193,98 @@ class principal:
         print(tempo3)
 
 
+    def bt_soma_fervura(self):
+
+         
+        fervura =int(self.lb_fervura["text"])
+        self.lb_fervura["text"] = int(fervura + 5)
+
+        arq = open("fervura.txt", "w")
+        arq.write(str(fervura))
+        arq.close()
+        print(fervura)
+
+    def bt_subtracao_fervura(self):
+        
+        fervura =int(self.lb_fervura["text"])
+        if fervura <= limite:
+            fervura = limite + 4
+        self.lb_fervura["text"] = int(fervura - 5)
+
+        arq = open("fervura.txt", "w")
+        arq.write(str(fervura))
+        arq.close()
+        print(fervura)
+    
+
+    def bt_soma_lupulo1(self):
+        
+        lupulo1 =int(self.lb_lupulo1["text"])
+        self.lb_lupulo1["text"] = int(lupulo1 + 1)
+
+        arq = open("lupulo1.txt", "w")
+        arq.write(str(lupulo1))
+        arq.close()
+        print(lupulo1)
+
+    def bt_subtracao_lupulo1(self):
+        
+        lupulo1 =int(self.lb_lupulo1["text"])
+        if lupulo1 <= limite:
+            lupulo1 = limite
+        self.lb_lupulo1["text"] = int(lupulo1 - 1)
+
+        arq = open("lupulo1.txt", "w")
+        arq.write(str(lupulo1))
+        arq.close()
+        print(lupulo1)
+
+
+    def bt_soma_timelup1(self):
+        
+        tempolup1 =int(self.lb_tempolup1["text"])
+        self.lb_tempolup1["text"] = int(tempolup1 + 5)
+
+        arq = open("tempolup1.txt", "w")
+        arq.write(str(tempolup1))
+        arq.close()
+        print(tempolup1)
+
+    def bt_subtracao_timelup1(self):
+        
+        tempolup1 =int(self.lb_tempolup1["text"])
+        if tempolup1 <= limite:
+            tempolu1 = limite + 4
+        self.lb_tempolup1["text"] = int(tempolup1 - 5)
+
+        arq = open("tempolup1.txt", "w")
+        arq.write(str(tempolup1))
+        arq.close()
+        print(tempolup1)
+
+    def bt_soma_timelup2(self):
+        
+        tempolup2 =int(self.lb_tempolup2["text"])
+        self.lb_tempolup2["text"] = int(tempolup2 + 5)
+
+        arq = open("tempolup2.txt", "w")
+        arq.write(str(tempolup2))
+        arq.close()
+        print(tempolup2)
+
+    def bt_subtracao_timelup2(self):
+        
+        tempolup2 =int(self.lb_tempolup2["text"])
+        if tempolup2 <= limite:
+            tempolu2 = limite + 4
+        self.lb_tempolup2["text"] = int(tempolup2 - 5)
+
+        arq = open("tempolup2.txt", "w")
+        arq.write(str(tempolup2))
+        arq.close()
+        print(tempolup2)
+
+
 
     def receita_nova(self):
         rec_nova = Tk()
@@ -344,21 +436,66 @@ class principal:
    
 
     def conf_fervura(self):
+                
         conf_fervura = Tk()
         conf_fervura.title("Automação Brassagem e Fervura")
         self.lb_conf_fervura = Label(conf_fervura, text="Configure a fervura", font="Arial 20")
-        self.lb_conf_fervura.place(x=270, y=70)
+        self.lb_conf_fervura.place(x=270, y=60)
+        
         self.lb_conf_fervura_combo=Label(conf_fervura,text="Tempo de fervura: ",font="Arial 15")
-        self.lb_conf_fervura_combo.place(x=180,y=120)
-        self.wr_seleciona_fervura = ttk.Combobox(conf_fervura, width=20)
-        self.wr_seleciona_fervura['values'] = ("5min", "10min", "15min","20min", "25min", "30min", "35min", "40min", "45min", "50min", "55min", "60min", "65min", "70min", "75min", "80min", "85min", "90min", "95min", "100min")
-        self.wr_seleciona_fervura.place(x=400, y=125)
-        self.wr_qtde_lupulo= ttk.Combobox(conf_fervura, width=20)
+        self.lb_conf_fervura_combo.place(x=180,y=110)
+        self.lb_fervura = Label(conf_fervura,text="0",font="Arial 20", fg= "black")
+        self.lb_fervura.place(x=360, y=110)
+        self.bt_soma_fervura = Button(conf_fervura, width=4, height =2, text="+", command= self.bt_soma_fervura)
+        self.bt_soma_fervura.place(x=400, y=115)        
+        self.bt_subtracao_fervura = Button(conf_fervura, width=4, height=2, text="-", command= self.bt_subtracao_fervura)        
+        self.bt_subtracao_fervura.place(x=440, y=115)       
+
         self.lb_conf_fervura_combo=Label(conf_fervura,text="Quantidade lupulos: ",font="Arial 15")
-        self.lb_conf_fervura_combo.place(x=180,y=150)
-        self.wr_qtde_lupulo['values'] = ("1", "2", "3", "4", "5", "6", "7")
-        self.wr_qtde_lupulo.place(x=400, y=155)
-        self.bt_confirma_temp = Button(conf_fervura, text="Iniciar Processo", width=40, height=5, state = "disabled")
+        self.lb_conf_fervura_combo.place(x=180,y=170)
+        self.lb_lupulo1 = Label(conf_fervura,text="0",font="Arial 20", fg= "black")
+        self.lb_lupulo1.place(x=360, y=160)
+        self.bt_soma_lupulo1 = Button(conf_fervura, width=4, height =2, text="+", command= self.bt_soma_lupulo1)
+        self.bt_soma_lupulo1.place(x=400, y=160)
+        self.bt_subtracao_lupulo1 = Button(conf_fervura, width=4, height=2, text="-", command= self.bt_subtracao_lupulo1)        
+        self.bt_subtracao_lupulo1.place(x=440, y=160)
+        
+        '''
+        if lb_lupulo1 == "1":
+            self.lb_conf_fervura_lup1=Label(conf_fervura,text="Tempo lupulo 1: ",font="Arial 15")
+            self.lb_conf_fervura_lup1.place(x=180,y=210)
+            self.lb_tempolup1 = Label(conf_fervura,text="0",font="Arial 20", fg= "black")
+            self.lb_tempolup1.place(x=360, y=210)
+            self.bt_soma_lup1 = Button(conf_fervura, width=4, height =2, text="+", command= self.bt_soma_timelup1)
+            self.bt_soma_lup1.place(x=400, y=210)        
+            self.bt_subtracao_lup1 = Button(conf_fervura, width=4, height=2, text="-", command= self.bt_subtracao_timelup1)        
+
+        '''
+
+        '''
+        #if lb_lupulo1 == "2":
+
+            self.lb_conf_fervura_lup1=Label(conf_fervura,text="Tempo lupulo 1: ",font="Arial 15")
+            self.lb_conf_fervura_lup1.place(x=180,y=210)
+            self.lb_tempolup1 = Label(conf_fervura,text="0",font="Arial 20", fg= "black")
+            self.lb_tempolup1.place(x=360, y=210)
+            self.bt_soma_lup1 = Button(conf_fervura, width=4, height =2, text="+", command= self.bt_soma_timelup1)
+            self.bt_soma_lup1.place(x=400, y=210)        
+            self.bt_subtracao_lup1 = Button(conf_fervura, width=4, height=2, text="-", command= self.bt_subtracao_timelup1)
+            
+            self.lb_conf_fervura_lup2=Label(conf_fervura,text="Tempo lupulo 2: ",font="Arial 15")
+            self.lb_conf_fervura_lup2.place(x=180,y=250)
+            self.lb_tempolup2 = Label(conf_fervura,text="0",font="Arial 20", fg= "black")
+            self.lb_tempolup2.place(x=360, y=250)
+            self.bt_soma_lup2 = Button(conf_fervura, width=4, height =2, text="+", command= self.bt_soma_timelup2)
+            self.bt_soma_lup2.place(x=400, y=250)        
+            self.bt_subtracao_lup2 = Button(conf_fervura, width=4, height=2, text="-", command= self.bt_subtracao_timelup2)        
+
+
+        '''
+
+
+        self.bt_confirma_temp = Button(conf_fervura, text="Iniciar Processo", width=40, height=5)
         
 	
         self.bt_confirma_temp.place(x=150, y=300)
