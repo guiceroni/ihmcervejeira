@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import ttk
-from tkinter.ttk import Combobox
+
 
 limite = 1
 limite_max =95
@@ -8,8 +8,6 @@ limite_rampas=3
 limite_lupulo=2
 
 class principal:
-
-    wr_escolhe_temp: Combobox
 
     def __init__(self, janela=None):
         self.janela = Label(janela, text="Bem Vindo a sua Cervejeira")
@@ -23,6 +21,7 @@ class principal:
         self.btconexao = Button(janela, text="Login APP", width=40, height=5)
         self.btconexao.place(x=450, y=150)
 
+           
     def Receitas(self):
         rec = Tk()
         rec.title("Automação Brassagem e Fervura")
@@ -37,9 +36,11 @@ class principal:
     def bt_soma(self):
         
         rampa =int(self.lb_rp["text"])
+        rampa = rampa + 1
         if rampa >= 3:
-        	rampa = limite_rampas
-        self.lb_rp["text"] = int(rampa + 1)
+            rampa = limite_rampas
+        
+        self.lb_rp["text"] = int(rampa)
 
         arq = open("rampas.txt", "w")
         arq.write(str(rampa))
@@ -49,9 +50,10 @@ class principal:
     def bt_subtracao(self):
         
         rampa =int(self.lb_rp["text"])
+        rampa = rampa -1 
         if rampa <= limite:
-            rampa = limite + 1
-        self.lb_rp["text"] = int(rampa - 1)
+            rampa = limite
+        self.lb_rp["text"] = int(rampa)
 
         arq = open("rampas.txt", "w")
         arq.write(str(rampa))
@@ -61,9 +63,10 @@ class principal:
     def bt_soma_temp1(self):
         
         temperatura =int(self.lb_temp["text"])
+        temperatura = temperatura + 5
         if temperatura >= 95:
             temperatura = 95
-        self.lb_temp["text"] = int(temperatura + 5)
+        self.lb_temp["text"] = int(temperatura)
 
         arq = open("temperatura1.txt", "w")
         arq.write(str(temperatura))
@@ -73,9 +76,10 @@ class principal:
     def bt_subtracao_temp1(self):
         
         temperatura =int(self.lb_temp["text"])
-        if temperatura <= limite:
-            temperatura = limite
-        self.lb_temp["text"] = int(temperatura - 5)
+        temperatura = temperatura - 5
+        if temperatura <= 0:
+            temperatura = 0
+        self.lb_temp["text"] = int(temperatura)
 
         arq = open("temperatura1.txt", "w")
         arq.write(str(temperatura))
@@ -85,9 +89,10 @@ class principal:
     def bt_soma_temp2(self):
         
         temperatura2 =int(self.lb_temp2["text"])
+        temperatura2 = temperatura2 + 5
         if temperatura2 >= 95:
             temperatura2 = 95
-        self.lb_temp2["text"] = int(temperatura2 + 5)
+        self.lb_temp2["text"] = int(temperatura2)
 
         arq = open("temperatura2.txt", "w")
         arq.write(str(temperatura2))
@@ -97,9 +102,10 @@ class principal:
     def bt_subtracao_temp2(self):
         
         temperatura2 =int(self.lb_temp2["text"])
-        if temperatura2 <= limite:
-            temperatura2 = limite
-        self.lb_temp2["text"] = int(temperatura2 - 5)
+        temperatura2 = temperatura2 - 5
+        if temperatura2 <= 0:
+            temperatura2 = 0
+        self.lb_temp2["text"] = int(temperatura2)
 
         arq = open("temperatura2.txt", "w")
         arq.write(str(temperatura2))
@@ -109,9 +115,10 @@ class principal:
     def bt_soma_temp3(self):
         
         temperatura3 =int(self.lb_temp3["text"])
+        temperatura3 = temperatura3 + 5
         if temperatura3 >= 95:
             temperatura3 = 95
-        self.lb_temp3["text"] = int(temperatura3 + 5)
+        self.lb_temp3["text"] = int(temperatura3)
 
         arq = open("temperatura3.txt", "w")
         arq.write(str(temperatura3))
@@ -121,9 +128,10 @@ class principal:
     def bt_subtracao_temp3(self):
         
         temperatura3 =int(self.lb_temp3["text"])
-        if temperatura3 <= limite:
-            temperatura3 = limite 
-        self.lb_temp3["text"] = int(temperatura3 - 5)
+        temperatura3 = temperatura3 - 5
+        if temperatura3 <= 0:
+            temperatura3 = 0 
+        self.lb_temp3["text"] = int(temperatura3)
 
         arq = open("temperatura3.txt", "w")
         arq.write(str(temperatura3))
@@ -133,9 +141,10 @@ class principal:
     def bt_soma_time1(self):
         
         tempo =int(self.lb_tempo["text"])
+        tempo = tempo + 5
         if tempo >= 95:
             tempo = 95
-        self.lb_tempo["text"] = int(tempo + 5)
+        self.lb_tempo["text"] = int(tempo)
 
         arq = open("tempo1.txt", "w")
         arq.write(str(tempo))
@@ -145,9 +154,10 @@ class principal:
     def bt_subtracao_time1(self):
         
         tempo =int(self.lb_tempo["text"])
-        if tempo <= limite:
-            tempo = limite
-        self.lb_tempo["text"] = int(tempo - 5)
+        tempo = tempo - 5
+        if tempo <= 0:
+            tempo = 0
+        self.lb_tempo["text"] = int(tempo)
 
         arq = open("tempo1.txt", "w")
         arq.write(str(tempo))
@@ -157,9 +167,10 @@ class principal:
     def bt_soma_time2(self):
         
         tempo2 =int(self.lb_tempo2["text"])
+        tempo2 = tempo2 + 5
         if tempo2 >= 95:
             tempo2 = 95
-        self.lb_tempo2["text"] = int(tempo2 + 5)
+        self.lb_tempo2["text"] = int(tempo2)
 
         arq = open("tempo2.txt", "w")
         arq.write(str(tempo2))
@@ -169,10 +180,12 @@ class principal:
     def bt_subtracao_time2(self):
         
         tempo2 =int(self.lb_tempo2["text"])
-        if tempo2 <= limite:
-            tempo2 = limite
-        self.lb_tempo2["text"] = int(tempo2 - 5)
-
+        tempo2 = tempo2 - 5
+        if tempo2 <= 0:
+            tempo2 = 0
+        self.lb_tempo2["text"] = int(tempo2)
+        
+        
         arq = open("tempo2.txt", "w")
         arq.write(str(tempo2))
         arq.close()
@@ -182,9 +195,10 @@ class principal:
     def bt_soma_time3(self):
         
         tempo3 =int(self.lb_tempo3["text"])
+        tempo3 = tempo3 + 5
         if tempo3 >= 95:
             tempo3 = 95
-        self.lb_tempo3["text"] = int(tempo3 + 5)
+        self.lb_tempo3["text"] = int(tempo3)
 
         arq = open("tempo3.txt", "w")
         arq.write(str(tempo3))
@@ -194,9 +208,10 @@ class principal:
     def bt_subtracao_time3(self):
         
         tempo3 =int(self.lb_tempo3["text"])
-        if tempo3 <= limite:
-            tempo3 = limite
-        self.lb_tempo3["text"] = int(tempo3 - 5)
+        tempo3 = tempo3 - 5
+        if tempo3 <= 0:
+            tempo3 = 0
+        self.lb_tempo3["text"] = int(tempo3)
 
         arq = open("tempo3.txt", "w")
         arq.write(str(tempo3))
@@ -208,9 +223,10 @@ class principal:
 
          
         fervura =int(self.lb_fervura["text"])
+        fervura = fervura + 5
         if fervura >= 95:
             fervura = 95
-        self.lb_fervura["text"] = int(fervura + 5)
+        self.lb_fervura["text"] = int(fervura)
 
         arq = open("fervura.txt", "w")
         arq.write(str(fervura))
@@ -220,9 +236,10 @@ class principal:
     def bt_subtracao_fervura(self):
         
         fervura =int(self.lb_fervura["text"])
-        if fervura <= limite:
-            fervura = limite            
-        self.lb_fervura["text"] = int(fervura - 5)
+        fervura = fervura - 5
+        if fervura <= 0:
+            fervura = 0            
+        self.lb_fervura["text"] = int(fervura)
 
         arq = open("fervura.txt", "w")
         arq.write(str(fervura))
@@ -233,9 +250,10 @@ class principal:
     def bt_soma_lupulo1(self):
         
         lupulo1 =int(self.lb_lupulo1["text"])
+        lupulo1 = lupulo1 + 1
         if lupulo1 >= 2:
         	lupulo1 = limite_lupulo
-        self.lb_lupulo1["text"] = int(lupulo1 + 1)
+        self.lb_lupulo1["text"] = int(lupulo1)
 
         arq = open("lupulo1.txt", "w")
         arq.write(str(lupulo1))
@@ -245,9 +263,10 @@ class principal:
     def bt_subtracao_lupulo1(self):
         
         lupulo1 =int(self.lb_lupulo1["text"])
-        if lupulo1 <= limite:
-            lupulo1 = limite
-        self.lb_lupulo1["text"] = int(lupulo1 - 1)
+        lupulo1 = lupulo1 - 1
+        if lupulo1 <= 1:
+            lupulo1 = 1
+        self.lb_lupulo1["text"] = int(lupulo1)
 
         arq = open("lupulo1.txt", "w")
         arq.write(str(lupulo1))
@@ -258,11 +277,11 @@ class principal:
     def bt_soma_timelup1(self):
         
         tempolup1 =int(self.lb_tempolup1["text"])
-
+        tempolup1 = tempolup1 + 5
         if tempolup1 >= 95:
             tempolup1 = 95
 
-        self.lb_tempolup1["text"] = int(tempolup1 + 5)
+        self.lb_tempolup1["text"] = int(tempolup1)
 
         arq = open("tempolup1.txt", "w")
         arq.write(str(tempolup1))
@@ -272,10 +291,11 @@ class principal:
     def bt_subtracao_timelup1(self):
         
         tempolup1 =int(self.lb_tempolup1["text"])
-        if tempolup1 <= limite:
-            tempolup1 = limite + 4
+        tempolup1 = tempolup1 - 5
+        if tempolup1 <= 0:
+            tempolup1 = 0
             
-        self.lb_tempolup1["text"] = int(tempolup1 - 5)        
+        self.lb_tempolup1["text"] = int(tempolup1)        
 
         arq = open("tempolup1.txt", "w")
         arq.write(str(tempolup1))
@@ -285,10 +305,10 @@ class principal:
     def bt_soma_timelup2(self):
         
         tempolup2 =int(self.lb_tempolup2["text"])
+        tempolup2 = tempolup2 + 5
         if tempolup2 >= 95:
             tempolup2 = 95
-
-        self.lb_tempolup2["text"] = int(tempolup2 + 5)
+        self.lb_tempolup2["text"] = int(tempolup2)        
         
         arq = open("tempolup2.txt", "w")
         arq.write(str(tempolup2))
@@ -298,9 +318,10 @@ class principal:
     def bt_subtracao_timelup2(self):
         
         tempolup2 =int(self.lb_tempolup2["text"])
-        if tempolup2 <= limite:
-            tempolup2 = limite + 4
-        self.lb_tempolup2["text"] = int(tempolup2 - 5)
+        tempolup2 = tempolup2 - 5
+        if tempolup2 <= 0:
+            tempolup2 = 0
+        self.lb_tempolup2["text"] = int(tempolup2)     
         
 
         arq = open("tempolup2.txt", "w")
@@ -338,6 +359,7 @@ class principal:
     def conf_rampas(self):
         rampa = open("rampas.txt")
         conf_rampa = int(rampa.read())
+        
         print(conf_rampa)
                      
         conf_rampas = Tk()        
