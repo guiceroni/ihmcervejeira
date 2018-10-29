@@ -61,8 +61,8 @@ class principal:
     def bt_soma_temp1(self):
         
         temperatura =int(self.lb_temp["text"])
-        if temperatura >= limite:
-            temperatura = limite + 1
+        if temperatura >= 95:
+            temperatura = 95
         self.lb_temp["text"] = int(temperatura + 5)
 
         arq = open("temperatura1.txt", "w")
@@ -74,7 +74,7 @@ class principal:
         
         temperatura =int(self.lb_temp["text"])
         if temperatura <= limite:
-            temperatura = limite + 4
+            temperatura = limite
         self.lb_temp["text"] = int(temperatura - 5)
 
         arq = open("temperatura1.txt", "w")
@@ -85,6 +85,8 @@ class principal:
     def bt_soma_temp2(self):
         
         temperatura2 =int(self.lb_temp2["text"])
+        if temperatura2 >= 95:
+            temperatura2 = 95
         self.lb_temp2["text"] = int(temperatura2 + 5)
 
         arq = open("temperatura2.txt", "w")
@@ -96,7 +98,7 @@ class principal:
         
         temperatura2 =int(self.lb_temp2["text"])
         if temperatura2 <= limite:
-            temperatura2 = limite + 4
+            temperatura2 = limite
         self.lb_temp2["text"] = int(temperatura2 - 5)
 
         arq = open("temperatura2.txt", "w")
@@ -107,6 +109,8 @@ class principal:
     def bt_soma_temp3(self):
         
         temperatura3 =int(self.lb_temp3["text"])
+        if temperatura3 >= 95:
+            temperatura3 = 95
         self.lb_temp3["text"] = int(temperatura3 + 5)
 
         arq = open("temperatura3.txt", "w")
@@ -118,7 +122,7 @@ class principal:
         
         temperatura3 =int(self.lb_temp3["text"])
         if temperatura3 <= limite:
-            temperatura3 = limite + 4
+            temperatura3 = limite 
         self.lb_temp3["text"] = int(temperatura3 - 5)
 
         arq = open("temperatura3.txt", "w")
@@ -129,6 +133,8 @@ class principal:
     def bt_soma_time1(self):
         
         tempo =int(self.lb_tempo["text"])
+        if tempo >= 95:
+            tempo = 95
         self.lb_tempo["text"] = int(tempo + 5)
 
         arq = open("tempo1.txt", "w")
@@ -140,7 +146,7 @@ class principal:
         
         tempo =int(self.lb_tempo["text"])
         if tempo <= limite:
-            tempo = limite + 4
+            tempo = limite
         self.lb_tempo["text"] = int(tempo - 5)
 
         arq = open("tempo1.txt", "w")
@@ -151,6 +157,8 @@ class principal:
     def bt_soma_time2(self):
         
         tempo2 =int(self.lb_tempo2["text"])
+        if tempo2 >= 95:
+            tempo2 = 95
         self.lb_tempo2["text"] = int(tempo2 + 5)
 
         arq = open("tempo2.txt", "w")
@@ -162,7 +170,7 @@ class principal:
         
         tempo2 =int(self.lb_tempo2["text"])
         if tempo2 <= limite:
-            tempo2 = limite + 4
+            tempo2 = limite
         self.lb_tempo2["text"] = int(tempo2 - 5)
 
         arq = open("tempo2.txt", "w")
@@ -174,6 +182,8 @@ class principal:
     def bt_soma_time3(self):
         
         tempo3 =int(self.lb_tempo3["text"])
+        if tempo3 >= 95:
+            tempo3 = 95
         self.lb_tempo3["text"] = int(tempo3 + 5)
 
         arq = open("tempo3.txt", "w")
@@ -185,7 +195,7 @@ class principal:
         
         tempo3 =int(self.lb_tempo3["text"])
         if tempo3 <= limite:
-            tempo3 = limite + 4
+            tempo3 = limite
         self.lb_tempo3["text"] = int(tempo3 - 5)
 
         arq = open("tempo3.txt", "w")
@@ -198,6 +208,8 @@ class principal:
 
          
         fervura =int(self.lb_fervura["text"])
+        if fervura >= 95:
+            fervura = 95
         self.lb_fervura["text"] = int(fervura + 5)
 
         arq = open("fervura.txt", "w")
@@ -209,7 +221,7 @@ class principal:
         
         fervura =int(self.lb_fervura["text"])
         if fervura <= limite:
-            fervura = limite + 4
+            fervura = limite            
         self.lb_fervura["text"] = int(fervura - 5)
 
         arq = open("fervura.txt", "w")
@@ -246,6 +258,10 @@ class principal:
     def bt_soma_timelup1(self):
         
         tempolup1 =int(self.lb_tempolup1["text"])
+
+        if tempolup1 >= 95:
+            tempolup1 = 95
+
         self.lb_tempolup1["text"] = int(tempolup1 + 5)
 
         arq = open("tempolup1.txt", "w")
@@ -257,8 +273,9 @@ class principal:
         
         tempolup1 =int(self.lb_tempolup1["text"])
         if tempolup1 <= limite:
-            tempolu1 = limite + 4
-        self.lb_tempolup1["text"] = int(tempolup1 - 5)
+            tempolup1 = limite + 4
+            
+        self.lb_tempolup1["text"] = int(tempolup1 - 5)        
 
         arq = open("tempolup1.txt", "w")
         arq.write(str(tempolup1))
@@ -268,8 +285,11 @@ class principal:
     def bt_soma_timelup2(self):
         
         tempolup2 =int(self.lb_tempolup2["text"])
-        self.lb_tempolup2["text"] = int(tempolup2 + 5)
+        if tempolup2 >= 95:
+            tempolup2 = 95
 
+        self.lb_tempolup2["text"] = int(tempolup2 + 5)
+        
         arq = open("tempolup2.txt", "w")
         arq.write(str(tempolup2))
         arq.close()
@@ -279,8 +299,9 @@ class principal:
         
         tempolup2 =int(self.lb_tempolup2["text"])
         if tempolup2 <= limite:
-            tempolu2 = limite + 4
+            tempolup2 = limite + 4
         self.lb_tempolup2["text"] = int(tempolup2 - 5)
+        
 
         arq = open("tempolup2.txt", "w")
         arq.write(str(tempolup2))
@@ -490,7 +511,7 @@ class principal:
             self.bt_soma_lup1 = Button(conf_lupulo, width=4, height =2, text="+", command= self.bt_soma_timelup1)
             self.bt_soma_lup1.place(x=400, y=130)        
             self.bt_subtracao_lup1 = Button(conf_lupulo, width=4, height=2, text="-", command= self.bt_subtracao_timelup1)
-            self.bt_subtracao_lup1.place(x=400, y=130)
+            self.bt_subtracao_lup1.place(x=440, y=130)
 
         
         elif lupulo1 == 2:
@@ -527,10 +548,10 @@ root = Tk()
 root.title("Automação Brassagem e Fervura")
 principal(root)
 
-# imagem = PhotoImage(file="TelaIHM.png")
-# img = Label(root, image=imagem)
-# img.imagem = imagem
-# img.place(x=0, y=0)
+#imagem = PhotoImage(file="TelaIHM.png")
+#img = Label(root, image=imagem)
+#img.imagem = imagem
+#img.place(x=0, y=0)
 
 margem = Label(root, height=7)
 margem.pack(anchor=W)
