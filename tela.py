@@ -378,31 +378,7 @@ class principal:
 
 
     def receita_nova(self):
-
-        arq1 = open("temperatura1.txt", "w")
-        arq1.write(str(0))
-        arq1.close()
-
-        arq1 = open("temperatura2.txt", "w")
-        arq1.write(str(0))
-        arq1.close()
-
-        arq1 = open("temperatura3.txt", "w")
-        arq1.write(str(0))
-        arq1.close()
-
-        arq1 = open("tempo1.txt", "w")
-        arq1.write(str(0))
-        arq1.close()
-
-        arq1 = open("tempo2.txt", "w")
-        arq1.write(str(0))
-        arq1.close()
-
-        arq1 = open("tempo3.txt", "w")
-        arq1.write(str(0))
-        arq1.close()
-        
+          
         rec_nova = Tk()
         rec_nova.title("Automação Brassagem e Fervura")        
         self.lb_rec_nova = Label(rec_nova, text="Cadastro de Receitas", font="Arial 20")
