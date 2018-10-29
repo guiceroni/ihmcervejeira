@@ -7,6 +7,52 @@ limite_max =95
 limite_rampas=3
 limite_lupulo=2
 
+arq = open("rampas.txt", "w")
+arq.write(str(1))
+arq.close()
+
+arq1 = open("temperatura1.txt", "w")
+arq1.write(str(0))
+arq1.close()
+
+arq1 = open("temperatura2.txt", "w")
+arq1.write(str(0))
+arq1.close()
+
+arq1 = open("temperatura3.txt", "w")
+arq1.write(str(0))
+arq1.close()
+
+arq1 = open("lupulo1.txt", "w")
+arq1.write(str(1))
+arq1.close()
+
+arq1 = open("fervura.txt", "w")
+arq1.write(str(0))
+arq1.close()
+
+arq1 = open("tempo1.txt", "w")
+arq1.write(str(0))
+arq1.close()
+
+arq1 = open("tempo2.txt", "w")
+arq1.write(str(0))
+arq1.close()
+
+arq1 = open("tempo3.txt", "w")
+arq1.write(str(0))
+arq1.close()
+
+arq1 = open("tempolup1.txt", "w")
+arq1.write(str(0))
+arq1.close()
+
+arq1 = open("tempolup2.txt", "w")
+arq1.write(str(0))
+arq1.close()  
+        
+        
+
 class principal:
 
     def __init__(self, janela=None):
@@ -332,6 +378,31 @@ class principal:
 
 
     def receita_nova(self):
+
+        arq1 = open("temperatura1.txt", "w")
+        arq1.write(str(0))
+        arq1.close()
+
+        arq1 = open("temperatura2.txt", "w")
+        arq1.write(str(0))
+        arq1.close()
+
+        arq1 = open("temperatura3.txt", "w")
+        arq1.write(str(0))
+        arq1.close()
+
+        arq1 = open("tempo1.txt", "w")
+        arq1.write(str(0))
+        arq1.close()
+
+        arq1 = open("tempo2.txt", "w")
+        arq1.write(str(0))
+        arq1.close()
+
+        arq1 = open("tempo3.txt", "w")
+        arq1.write(str(0))
+        arq1.close()
+        
         rec_nova = Tk()
         rec_nova.title("Automação Brassagem e Fervura")        
         self.lb_rec_nova = Label(rec_nova, text="Cadastro de Receitas", font="Arial 20")
@@ -356,7 +427,9 @@ class principal:
                               
         rec_nova.geometry("800x480+200+200")
 
-    def conf_rampas(self):
+    def conf_rampas(self):     
+         
+        
         rampa = open("rampas.txt")
         conf_rampa = int(rampa.read())
         
@@ -499,7 +572,7 @@ class principal:
 
         self.lb_conf_fervura_combo=Label(conf_fervura,text="Quantidade lupulos: ",font="Arial 15")
         self.lb_conf_fervura_combo.place(x=180,y=170)
-        self.lb_lupulo1 = Label(conf_fervura,text="0",font="Arial 20", fg= "black")
+        self.lb_lupulo1 = Label(conf_fervura,text="1",font="Arial 20", fg= "black")
         self.lb_lupulo1.place(x=360, y=160)
         self.bt_soma_lupulo1 = Button(conf_fervura, width=4, height =2, text="+", command= self.bt_soma_lupulo1)
         self.bt_soma_lupulo1.place(x=400, y=160)
