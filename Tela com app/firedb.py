@@ -1,6 +1,5 @@
 import pyrebase
 
-
 config = {
     "apiKey": "AIzaSyB7hqzc1Ml6d9uGUYRLF1Iad6J6QiTWjSM",
     "authDomain": "loginemail-a0eb8.firebaseapp.com",
@@ -16,7 +15,6 @@ db = firebase.database()
 
 def getConta(key):
 	print("***Def getConta***")
-	print(key)
 	data = db.child("maquinas/" + key).get()
 	
 	print(data.val())
@@ -37,10 +35,12 @@ def getData(key):
 		resul = user.val()
 
 	return resul
+	
+def pushData(key, data, local):
+	print("***Def pushData***")
+	conta = getConta(key)
+	db.child(conta).child("produzindo").update({local: data})
 
-'''data = {"conta": "0"}
-		
-db.child("maquinas").child(key).set(data)'''
-
-
-'''db.child("maquinas/" + key).update({"conta": "0"})'''
+def confTempo():	
+	db.child(key).child("produzindo").set({tempoAtualRaw: ""})
+	db.child(key).child("produzindo").set({tempoTotalRaw: ""})

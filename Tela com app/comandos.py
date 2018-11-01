@@ -1,4 +1,5 @@
 from datatime import datetime
+import firedb
 
 def mensagem(cod):
 	if cod == 0:
@@ -39,3 +40,11 @@ def tempoProcesso(inicio):
 	minutos = minutos - inicio
 	
 	return minutos
+
+def configurarRampa(key, ramp, rampas):
+	rampas = rampas.split('/')
+	ramp = rampas[ramp-1]
+	ramp = ramp.split('-')
+	firedb.pushData(key, ramp[0], "rampAtTempe")
+	firedb.pushData(key, ramp[1], "rampAtTempo")
+	return 0

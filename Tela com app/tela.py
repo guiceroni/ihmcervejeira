@@ -1,5 +1,6 @@
 from tkinter import *
 import firedb
+import comandos as comand
 
 key = "7757"
 data = ""
@@ -25,13 +26,31 @@ def nao():
 	lbExpl_seg["text"] = "e depois clique no botao \"Sim\" acima"
 	
 def ok():
-	pass
+	print("Botao pressionado")
+	if(int(data['comando']) == 0):
+		firedb.pushData(key, 001, "comando")
+	elif(int(data['comando']) == 2):
+		comando = int(data['rampAtual'] + "00")
+		firedb.pushData(key, comando, "comando")
+	elif(int(data['comando']) == 3):
+		firedb.pushData(key, 004, "comando")
+	btnOk["state"] = "disabled"
+	atualizaMensagem()
+	ter.after(5000, checaSensores)
+	
+def tempo():
+	
 	
 def checaSensores():
 	print(btnOk["state"])
-	#firedb.pushData(key, PEGAR VALOR DO SENSOR)
+	#firedb.pushData(key, PEGAR VALOR DO SENSOR, "tempAtual")
 	if(btnOk["state"] == "disabled"):
-		ter.after(1000, checaSensores)
+		ter.after(5000, checaSensores)
+	elif(data['comando'] == 0 or data['comando'] == 2 or data['comando'] == 3):
+		btnOk["state"] = "enabled"
+		
+def atualizaMensagem():
+	firedb.pushData(key, comand.mensagem(int(data['comando'])), "mensagem")
 
 ##################  PRIMEIRA TELA  ##################  
 pri = Tk()
@@ -82,9 +101,17 @@ lbExpl_seg.pack()
 seg.geometry("800x480+200+200")
 seg.mainloop()
 
-##################  TERCEIRA TELA  ##################  
+############## INICIO DA CONFIGURACAO ###############
 
+firedb.pushData(key, 1, "rampAtual")
 data = firedb.getData(key)
+atualizaMensagem()
+comand.configurarRampa(key, 1, data['tempPro'])
+firedb.pushData(key, 0, "tempoAtual")
+firedb.pushData(key, 0, "tempoTotal")
+firedb.pushData(key, comand.tempoInicio(), "tempoTotalRaw")
+
+##################  TERCEIRA TELA  ##################  
 
 ter = Tk()
 imagem = PhotoImage(file="TelaIHM.png")
@@ -110,14 +137,10 @@ Ramp = Label(ter, text=data['rampAtual'], font=("Arial",15,"bold"))
 Ramp.place(x=480,y=183)
 Aviso = Label(ter, text ="Para mais informacoes consulte o app", font=("Arial",20,"bold"), height=2)
 Aviso.pack()
-btnOk = Button(ter, text="OK", font=("Arial",20,"bold"), width=10, height=2, command=ok, state=DISABLED)
+btnOk = Button(ter, text="OK", font=("Arial",20,"bold"), width=10, height=2, command=ok, state=enabled)
 btnOk.pack()
-
-
 
 ter.after(100, checaSensores)
 
 ter.geometry("800x480+200+200")
 ter.mainloop()
-
-
