@@ -1,4 +1,4 @@
-from datatime import datetime
+from datetime import datetime
 import firedb
 
 def mensagem(cod):
