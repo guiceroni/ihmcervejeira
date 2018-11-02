@@ -1,631 +1,231 @@
 from tkinter import *
-from tkinter import ttk
-
-
-limite = 1
-limite_max =95
-limite_rampas=3
-limite_lupulo=2
-
-arq = open("rampas.txt", "w")
-arq.write(str(1))
-arq.close()
-
-arq1 = open("temperatura1.txt", "w")
-arq1.write(str(0))
-arq1.close()
-
-arq1 = open("temperatura2.txt", "w")
-arq1.write(str(0))
-arq1.close()
-
-arq1 = open("temperatura3.txt", "w")
-arq1.write(str(0))
-arq1.close()
-
-arq1 = open("lupulo1.txt", "w")
-arq1.write(str(1))
-arq1.close()
-
-arq1 = open("fervura.txt", "w")
-arq1.write(str(0))
-arq1.close()
-
-arq1 = open("tempo1.txt", "w")
-arq1.write(str(0))
-arq1.close()
-
-arq1 = open("tempo2.txt", "w")
-arq1.write(str(0))
-arq1.close()
-
-arq1 = open("tempo3.txt", "w")
-arq1.write(str(0))
-arq1.close()
-
-arq1 = open("tempolup1.txt", "w")
-arq1.write(str(0))
-arq1.close()
-
-arq1 = open("tempolup2.txt", "w")
-arq1.write(str(0))
-arq1.close()  
-        
-        
-
-class principal:
-
-    def __init__(self, janela=None):
-        self.janela = Label(janela, text="Bem Vindo a sua Cervejeira")
-
-        self.lb_telainicial = Label(janela, text="Bem Vindo a sua Cervejeira!!", font="Arial 20")
-        self.lb_telainicial.place(x=220, y=70)
-
-        self.btreceita = Button(janela, text="Receitas", width=40, height=5, command=self.Receitas)
-        self.btreceita.place(x=50, y=150)
-
-        self.btconexao = Button(janela, text="Login APP", width=40, height=5)
-        self.btconexao.place(x=450, y=150)
-
-           
-    def Receitas(self):
-        rec = Tk()
-        rec.title("Automação Brassagem e Fervura")
-        self.lb_rec = Label(rec, text="Menu de Receitas", font="Arial 20")
-        self.lb_rec.place(x=300, y=70)
-        self.bt_novareceita = Button(rec, text="Programar Receita", width=40, height=5, command=self.receita_nova)
-        self.bt_novareceita.place(x=50, y=150)
-        self.bt_rec_return = Button(rec, text="Voltar", width=40, height=5, command=rec.destroy)
-        self.bt_rec_return.place(x=450, y=150)
-        rec.geometry("800x480+200+200")
-
-    def bt_soma(self):
-        
-        rampa =int(self.lb_rp["text"])
-        rampa = rampa + 1
-        if rampa >= 3:
-            rampa = limite_rampas
-        
-        self.lb_rp["text"] = int(rampa)
-
-        arq = open("rampas.txt", "w")
-        arq.write(str(rampa))
-        arq.close()
-        print(rampa)
-
-    def bt_subtracao(self):
-        
-        rampa =int(self.lb_rp["text"])
-        rampa = rampa -1 
-        if rampa <= limite:
-            rampa = limite
-        self.lb_rp["text"] = int(rampa)
-
-        arq = open("rampas.txt", "w")
-        arq.write(str(rampa))
-        arq.close()
-        print(rampa)
-
-    def bt_soma_temp1(self):
-        
-        temperatura =int(self.lb_temp["text"])
-        temperatura = temperatura + 5
-        if temperatura >= 95:
-            temperatura = 95
-        self.lb_temp["text"] = int(temperatura)
-
-        arq = open("temperatura1.txt", "w")
-        arq.write(str(temperatura))
-        arq.close()
-        print(temperatura)
-
-    def bt_subtracao_temp1(self):
-        
-        temperatura =int(self.lb_temp["text"])
-        temperatura = temperatura - 5
-        if temperatura <= 0:
-            temperatura = 0
-        self.lb_temp["text"] = int(temperatura)
-
-        arq = open("temperatura1.txt", "w")
-        arq.write(str(temperatura))
-        arq.close()
-        print(temperatura)
-
-    def bt_soma_temp2(self):
-        
-        temperatura2 =int(self.lb_temp2["text"])
-        temperatura2 = temperatura2 + 5
-        if temperatura2 >= 95:
-            temperatura2 = 95
-        self.lb_temp2["text"] = int(temperatura2)
-
-        arq = open("temperatura2.txt", "w")
-        arq.write(str(temperatura2))
-        arq.close()
-        print(temperatura2)
-
-    def bt_subtracao_temp2(self):
-        
-        temperatura2 =int(self.lb_temp2["text"])
-        temperatura2 = temperatura2 - 5
-        if temperatura2 <= 0:
-            temperatura2 = 0
-        self.lb_temp2["text"] = int(temperatura2)
-
-        arq = open("temperatura2.txt", "w")
-        arq.write(str(temperatura2))
-        arq.close()
-        print(temperatura2)
-
-    def bt_soma_temp3(self):
-        
-        temperatura3 =int(self.lb_temp3["text"])
-        temperatura3 = temperatura3 + 5
-        if temperatura3 >= 95:
-            temperatura3 = 95
-        self.lb_temp3["text"] = int(temperatura3)
-
-        arq = open("temperatura3.txt", "w")
-        arq.write(str(temperatura3))
-        arq.close()
-        print(temperatura3)
-
-    def bt_subtracao_temp3(self):
-        
-        temperatura3 =int(self.lb_temp3["text"])
-        temperatura3 = temperatura3 - 5
-        if temperatura3 <= 0:
-            temperatura3 = 0 
-        self.lb_temp3["text"] = int(temperatura3)
-
-        arq = open("temperatura3.txt", "w")
-        arq.write(str(temperatura3))
-        arq.close()
-        print(temperatura3)
-
-    def bt_soma_time1(self):
-        
-        tempo =int(self.lb_tempo["text"])
-        tempo = tempo + 5
-        if tempo >= 95:
-            tempo = 95
-        self.lb_tempo["text"] = int(tempo)
-
-        arq = open("tempo1.txt", "w")
-        arq.write(str(tempo))
-        arq.close()
-        print(tempo)
-
-    def bt_subtracao_time1(self):
-        
-        tempo =int(self.lb_tempo["text"])
-        tempo = tempo - 5
-        if tempo <= 0:
-            tempo = 0
-        self.lb_tempo["text"] = int(tempo)
-
-        arq = open("tempo1.txt", "w")
-        arq.write(str(tempo))
-        arq.close()
-        print(tempo)
-
-    def bt_soma_time2(self):
-        
-        tempo2 =int(self.lb_tempo2["text"])
-        tempo2 = tempo2 + 5
-        if tempo2 >= 95:
-            tempo2 = 95
-        self.lb_tempo2["text"] = int(tempo2)
-
-        arq = open("tempo2.txt", "w")
-        arq.write(str(tempo2))
-        arq.close()
-        print(tempo2)
-
-    def bt_subtracao_time2(self):
-        
-        tempo2 =int(self.lb_tempo2["text"])
-        tempo2 = tempo2 - 5
-        if tempo2 <= 0:
-            tempo2 = 0
-        self.lb_tempo2["text"] = int(tempo2)
-        
-        
-        arq = open("tempo2.txt", "w")
-        arq.write(str(tempo2))
-        arq.close()
-        print(tempo2)
-        
-
-    def bt_soma_time3(self):
-        
-        tempo3 =int(self.lb_tempo3["text"])
-        tempo3 = tempo3 + 5
-        if tempo3 >= 95:
-            tempo3 = 95
-        self.lb_tempo3["text"] = int(tempo3)
-
-        arq = open("tempo3.txt", "w")
-        arq.write(str(tempo3))
-        arq.close()
-        print(tempo3)
-
-    def bt_subtracao_time3(self):
-        
-        tempo3 =int(self.lb_tempo3["text"])
-        tempo3 = tempo3 - 5
-        if tempo3 <= 0:
-            tempo3 = 0
-        self.lb_tempo3["text"] = int(tempo3)
-
-        arq = open("tempo3.txt", "w")
-        arq.write(str(tempo3))
-        arq.close()
-        print(tempo3)
-
-
-    def bt_soma_fervura(self):
-
-         
-        fervura =int(self.lb_fervura["text"])
-        fervura = fervura + 5
-        if fervura >= 95:
-            fervura = 95
-        self.lb_fervura["text"] = int(fervura)
-
-        arq = open("fervura.txt", "w")
-        arq.write(str(fervura))
-        arq.close()
-        print(fervura)
-
-    def bt_subtracao_fervura(self):
-        
-        fervura =int(self.lb_fervura["text"])
-        fervura = fervura - 5
-        if fervura <= 0:
-            fervura = 0            
-        self.lb_fervura["text"] = int(fervura)
-
-        arq = open("fervura.txt", "w")
-        arq.write(str(fervura))
-        arq.close()
-        print(fervura)
-    
-
-    def bt_soma_lupulo1(self):
-        
-        lupulo1 =int(self.lb_lupulo1["text"])
-        lupulo1 = lupulo1 + 1
-        if lupulo1 >= 2:
-        	lupulo1 = limite_lupulo
-        self.lb_lupulo1["text"] = int(lupulo1)
-
-        arq = open("lupulo1.txt", "w")
-        arq.write(str(lupulo1))
-        arq.close()
-        
-
-    def bt_subtracao_lupulo1(self):
-        
-        lupulo1 =int(self.lb_lupulo1["text"])
-        lupulo1 = lupulo1 - 1
-        if lupulo1 <= 1:
-            lupulo1 = 1
-        self.lb_lupulo1["text"] = int(lupulo1)
-
-        arq = open("lupulo1.txt", "w")
-        arq.write(str(lupulo1))
-        arq.close()
-        print(lupulo1)
-
-
-    def bt_soma_timelup1(self):
-        
-        tempolup1 =int(self.lb_tempolup1["text"])
-        tempolup1 = tempolup1 + 5
-        if tempolup1 >= 95:
-            tempolup1 = 95
-
-        self.lb_tempolup1["text"] = int(tempolup1)
-
-        arq = open("tempolup1.txt", "w")
-        arq.write(str(tempolup1))
-        arq.close()
-        print(tempolup1)
-
-    def bt_subtracao_timelup1(self):
-        
-        tempolup1 =int(self.lb_tempolup1["text"])
-        tempolup1 = tempolup1 - 5
-        if tempolup1 <= 0:
-            tempolup1 = 0
-            
-        self.lb_tempolup1["text"] = int(tempolup1)        
-
-        arq = open("tempolup1.txt", "w")
-        arq.write(str(tempolup1))
-        arq.close()
-        print(tempolup1)
-
-    def bt_soma_timelup2(self):
-        
-        tempolup2 =int(self.lb_tempolup2["text"])
-        tempolup2 = tempolup2 + 5
-        if tempolup2 >= 95:
-            tempolup2 = 95
-        self.lb_tempolup2["text"] = int(tempolup2)        
-        
-        arq = open("tempolup2.txt", "w")
-        arq.write(str(tempolup2))
-        arq.close()
-        print(tempolup2)
-
-    def bt_subtracao_timelup2(self):
-        
-        tempolup2 =int(self.lb_tempolup2["text"])
-        tempolup2 = tempolup2 - 5
-        if tempolup2 <= 0:
-            tempolup2 = 0
-        self.lb_tempolup2["text"] = int(tempolup2)     
-        
-
-        arq = open("tempolup2.txt", "w")
-        arq.write(str(tempolup2))
-        arq.close()
-        print(tempolup2)
-
-
-
-    def receita_nova(self):
-          
-        rec_nova = Tk()
-        rec_nova.title("Automação Brassagem e Fervura")        
-        self.lb_rec_nova = Label(rec_nova, text="Cadastro de Receitas", font="Arial 20")
-        self.lb_rec_nova.place(x=270, y=70)
-        self.lb_qtde_rampas = Label(rec_nova, text="Qual a quantidade de rampas?", font="Arial 15")
-        self.lb_qtde_rampas.place(x=140, y=150)
-        
-        self.lb_rp = Label(rec_nova,text="1",font="Arial 70", fg= "black")
-        self.lb_rp.place(x=330, y=180)
-            
-
-        self.bt_soma_rp = Button(rec_nova, width=6, height =4, text="+", command= self.bt_soma)
-        self.bt_soma_rp.place(x=450, y=200)
-        
-        self.bt_subtracao_rp = Button(rec_nova, width=6, height=4, text="-", command= self.bt_subtracao)
-        self.bt_subtracao_rp.place(x=520, y=200)       
-        
-        self.bt_confirma_recnova = Button(rec_nova, text="Confirmar", width=40, height=5, command=self.conf_rampas)
-        self.bt_confirma_recnova.place(x=150, y=300)
-        self.bt_cancela_recnova = Button(rec_nova, text="Cancelar", width=30, height=5, command=rec_nova.destroy)
-        self.bt_cancela_recnova.place(x=450, y=300)
-                              
-        rec_nova.geometry("800x480+200+200")
-
-    def conf_rampas(self):     
-         
-        
-        rampa = open("rampas.txt")
-        conf_rampa = int(rampa.read())
-        
-        print(conf_rampa)
-                     
-        conf_rampas = Tk()        
-        conf_rampas.title("Automação Brassagem e Fervura")
-        self.lb_conf_ramp = Label(conf_rampas, text="Cadastre sua receita", font="Arial 20")
-        self.lb_conf_ramp.place(x=270, y=70)
-       
-        if conf_rampa == 1:
-            self.lb_rampa1=Label(conf_rampas,text="Temperatura Rampa 1: ",font="Arial 15")
-            self.lb_rampa1.place(x=180,y=140)            
-            self.lb_temp = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_temp.place(x=400, y=140)
-            self.bt_soma_temp = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_temp1)
-            self.bt_soma_temp.place(x=440, y=140)        
-            self.bt_subtracao_temp = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_temp1)
-            self.bt_subtracao_temp.place(x=500, y=140)            
-            self.lb_rampa_tempo1=Label(conf_rampas,text="Tempo Rampa 1(min): ",font="Arial 15")
-            self.lb_rampa_tempo1.place(x=180,y=190)
-            self.lb_tempo = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_tempo.place(x=400, y=190)
-            self.bt_soma_tempo = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_time1)
-            self.bt_soma_tempo.place(x=440, y=190)        
-            self.bt_subtracao_tempo = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_time1)
-            self.bt_subtracao_tempo.place(x=500, y=190)
-            
-        elif conf_rampa == 2:
-            self.lb_rampa1=Label(conf_rampas,text="Temperatura Rampa 1: ",font="Arial 15")
-            self.lb_rampa1.place(x=40,y=140)            
-            self.lb_temp = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_temp.place(x=260, y=140)
-            self.bt_soma_temp = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_temp1)
-            self.bt_soma_temp.place(x=300, y=140)        
-            self.bt_subtracao_temp = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_temp1)
-            self.bt_subtracao_temp.place(x=340, y=140)            
-            self.lb_rampa_tempo1=Label(conf_rampas,text="Tempo Rampa 1(min): ",font="Arial 15")
-            self.lb_rampa_tempo1.place(x=400,y=140)
-            self.lb_tempo = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_tempo.place(x=620, y=140)
-            self.bt_soma_tempo = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_time1)
-            self.bt_soma_tempo.place (x=660, y=140)      
-            self.bt_subtracao_tempo = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_time1)
-            self.bt_subtracao_tempo.place(x=700, y=140)
-
-            self.lb_rampa2=Label(conf_rampas,text="Temperatura Rampa 2: ",font="Arial 15")
-            self.lb_rampa2.place(x=40,y=190)           
-            self.lb_temp2 = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_temp2.place(x=260, y=190)
-            self.bt_soma_temp2 = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_temp2)
-            self.bt_soma_temp2.place(x=300, y=190)        
-            self.bt_subtracao_temp2 = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_temp2)
-            self.bt_subtracao_temp2.place (x=340, y=190)           
-            self.lb_rampa_tempo2=Label(conf_rampas,text="Tempo Rampa 2(min): ",font="Arial 15")
-            self.lb_rampa_tempo2.place(x=400,y=190)
-            self.lb_tempo2 = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_tempo2.place(x=620, y=190)
-            self.bt_soma_tempo2 = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_time2)
-            self.bt_soma_tempo2.place(x=660, y=190)        
-            self.bt_subtracao_tempo2 = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_time2)
-            self.bt_subtracao_tempo2.place(x=700, y=190)
-
-        elif conf_rampa == 3:
-            self.lb_rampa1=Label(conf_rampas,text="Temperatura Rampa 1: ",font="Arial 15")
-            self.lb_rampa1.place(x=40,y=140)            
-            self.lb_temp = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_temp.place(x=260, y=140)
-            self.bt_soma_temp = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_temp1)
-            self.bt_soma_temp.place(x=300, y=140)        
-            self.bt_subtracao_temp = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_temp1)
-            self.bt_subtracao_temp.place(x=340, y=140)            
-            self.lb_rampa_tempo1=Label(conf_rampas,text="Tempo Rampa 1(min): ",font="Arial 15")
-            self.lb_rampa_tempo1.place(x=400,y=140)
-            self.lb_tempo = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_tempo.place(x=620, y=140)
-            self.bt_soma_tempo = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_time1)
-            self.bt_soma_tempo.place(x=660, y=140)      
-            self.bt_subtracao_tempo = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_time1)
-            self.bt_subtracao_tempo.place(x=700, y=140)
-
-            self.lb_rampa2=Label(conf_rampas,text="Temperatura Rampa 2: ",font="Arial 15")
-            self.lb_rampa2.place(x=40,y=190)            
-            self.lb_temp2 = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_temp2.place(x=260, y=190)
-            self.bt_soma_temp2 = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_temp2)
-            self.bt_soma_temp2.place (x=300, y=190)        
-            self.bt_subtracao_temp2 = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_temp2)
-            self.bt_subtracao_temp2.place(x=340, y=190)            
-            self.lb_rampa_tempo2=Label(conf_rampas,text="Tempo Rampa 2(min): ",font="Arial 15")
-            self.lb_rampa_tempo2.place(x=400,y=190)
-            self.lb_tempo2 = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_tempo2.place(x=620, y=190)
-            self.bt_soma_tempo2 = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_time2)
-            self.bt_soma_tempo2.place(x=660, y=190)        
-            self.bt_subtracao_tempo2 = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_time2)
-            self.bt_subtracao_tempo2.place(x=700, y=190)
-
-            self.lb_rampa3=Label(conf_rampas,text="Temperatura Rampa 3: ",font="Arial 15")
-            self.lb_rampa3.place(x=40,y=240)            
-            self.lb_temp3 = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_temp3.place(x=260, y=240)
-            self.bt_soma_temp3 = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_temp3)
-            self.bt_soma_temp3.place(x=300, y=240)        
-            self.bt_subtracao_temp3 = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_temp3)
-            self.bt_subtracao_temp3.place(x=340, y=240)            
-            self.lb_rampa_tempo3=Label(conf_rampas,text="Tempo Rampa 3(min): ",font="Arial 15")
-            self.lb_rampa_tempo3.place(x=400,y=240)
-            self.lb_tempo3 = Label(conf_rampas,text="0",font="Arial 20", fg= "black")
-            self.lb_tempo3.place(x=620, y=240)
-            self.bt_soma_tempo3 = Button(conf_rampas, width=4, height =2, text="+", command= self.bt_soma_time3)
-            self.bt_soma_tempo3.place(x=660, y=240)        
-            self.bt_subtracao_tempo3 = Button(conf_rampas, width=4, height=2, text="-", command= self.bt_subtracao_time3)
-            self.bt_subtracao_tempo3.place(x=700, y=240)
-               
-        
-        self.bt_confirma_temp = Button(conf_rampas, text="Confirmar", width=40, height=5, command=self.conf_fervura)
-        self.bt_confirma_temp.place(x=150, y=300)
-        self.bt_cancela_rampas = Button(conf_rampas, text="Cancelar", width=30, height=5, command=conf_rampas.destroy)
-        self.bt_cancela_rampas.place(x=450, y=300)
-        conf_rampas.geometry("800x480+200+200")
-
-
-    def conf_fervura(self):
-
-                     
-        conf_fervura = Tk()
-        conf_fervura.title("Automação Brassagem e Fervura")
-        self.lb_conf_fervura = Label(conf_fervura, text="Configure a fervura", font="Arial 20")
-        self.lb_conf_fervura.place(x=270, y=60)
-        
-        self.lb_conf_fervura_combo=Label(conf_fervura,text="Tempo de fervura: ",font="Arial 15")
-        self.lb_conf_fervura_combo.place(x=180,y=110)
-        self.lb_fervura = Label(conf_fervura,text="0",font="Arial 20", fg= "black")
-        self.lb_fervura.place(x=360, y=110)
-        self.bt_soma_fervura = Button(conf_fervura, width=4, height =2, text="+", command= self.bt_soma_fervura)
-        self.bt_soma_fervura.place(x=400, y=115)        
-        self.bt_subtracao_fervura = Button(conf_fervura, width=4, height=2, text="-", command= self.bt_subtracao_fervura)        
-        self.bt_subtracao_fervura.place(x=440, y=115)       
-
-        self.lb_conf_fervura_combo=Label(conf_fervura,text="Quantidade lupulos: ",font="Arial 15")
-        self.lb_conf_fervura_combo.place(x=180,y=170)
-        self.lb_lupulo1 = Label(conf_fervura,text="1",font="Arial 20", fg= "black")
-        self.lb_lupulo1.place(x=360, y=160)
-        self.bt_soma_lupulo1 = Button(conf_fervura, width=4, height =2, text="+", command= self.bt_soma_lupulo1)
-        self.bt_soma_lupulo1.place(x=400, y=160)
-                
-        self.bt_subtracao_lupulo1 = Button(conf_fervura, width=4, height=2, text="-", command= self.bt_subtracao_lupulo1)        
-        self.bt_subtracao_lupulo1.place(x=440, y=160)
-
-        self.bt_confirma_temp = Button(conf_fervura, text="Continuar", width=40, height=5, command = self.conf_lupulo)      
+import firedb
+import comandos as comand
+import temperatura as temp
+import Funcoes as fun
+import Configuracoes as conf
+
+key = "5555"
+data = ""
+
+def conta():
+	val = firedb.getConta(key)
+	if val == "0":
+		lbResul["text"] = "Nao foi encontrada conta vinculada com essa maquina"
+		lbExpl["text"] = "Faca o cadastro pelo aplicativo"
+	else:
+		lbResul["text"] = val
+		lbExpl["text"] = ""
+		pri.destroy()
 	
-        self.bt_confirma_temp.place(x=150, y=300)
-        self.bt_cancela_rampas = Button(conf_fervura, text="Cancelar", width=30, height=5, command=conf_fervura.destroy)
-        self.bt_cancela_rampas.place(x=450, y=300)
-        conf_fervura.geometry("800x480+200+200")
-        
-    def conf_lupulo(self):
+def sim():
+	seg.destroy()
 
-        lupulo1 = open("lupulo1.txt")
-        lupulo1 = int(lupulo1.read())
-        print(lupulo1)
-
-        conf_lupulo= Tk()
-        conf_lupulo.title("Automação Brassagem e Fervura")
-        self.lb_conf_lupulo = Label(conf_lupulo, text="Configure o tempo dos lupulos", font="Arial 20")
-        self.lb_conf_lupulo.place(x=270, y=60)        
-        
-        if lupulo1 == 1:
-            self.lb_conf_fervura_lup1=Label(conf_lupulo,text="Tempo lupulo 1: ",font="Arial 15")
-            self.lb_conf_fervura_lup1.place(x=180,y=130)
-            self.lb_tempolup1 = Label(conf_lupulo,text="0",font="Arial 20", fg= "black")
-            self.lb_tempolup1.place(x=350, y=130)
-            self.bt_soma_lup1 = Button(conf_lupulo, width=4, height =2, text="+", command= self.bt_soma_timelup1)
-            self.bt_soma_lup1.place(x=400, y=130)        
-            self.bt_subtracao_lup1 = Button(conf_lupulo, width=4, height=2, text="-", command= self.bt_subtracao_timelup1)
-            self.bt_subtracao_lup1.place(x=440, y=130)
-
-        
-        elif lupulo1 == 2:
-
-            self.lb_conf_fervura_lup1=Label(conf_lupulo,text="Tempo lupulo 1: ",font="Arial 15")
-            self.lb_conf_fervura_lup1.place(x=180,y=130)
-            self.lb_tempolup1 = Label(conf_lupulo,text="0",font="Arial 20", fg= "black")
-            self.lb_tempolup1.place(x=350, y=130)
-            self.bt_soma_lup1 = Button(conf_lupulo, width=4, height =2, text="+", command= self.bt_soma_timelup1)
-            self.bt_soma_lup1.place(x=400, y=130)        
-            self.bt_subtracao_lup1 = Button(conf_lupulo, width=4, height=2, text="-", command= self.bt_subtracao_timelup1)
-            self.bt_subtracao_lup1.place(x=440, y=130)
-            
-            self.lb_conf_fervura_lup2=Label(conf_lupulo,text="Tempo lupulo 2: ",font="Arial 15")
-            self.lb_conf_fervura_lup2.place(x=180,y=180)
-            self.lb_tempolup2 = Label(conf_lupulo,text="0",font="Arial 20", fg= "black")
-            self.lb_tempolup2.place(x=350, y=180)
-            self.bt_soma_lup2 = Button(conf_lupulo, width=4, height =2, text="+", command= self.bt_soma_timelup2)
-            self.bt_soma_lup2.place(x=400, y=180)        
-            self.bt_subtracao_lup2 = Button(conf_lupulo, width=4, height=2, text="-", command= self.bt_subtracao_timelup2)
-            self.bt_subtracao_lup2.place(x=440, y=180)
-
-        self.bt_confirma_temp = Button(conf_lupulo, text="Iniciar Processo", width=40, height=5)       
+def nao():
+	lbResul_seg["text"] = "Programe sua receita pelo app"
+	lbExpl_seg["text"] = "e depois clique no botao \"Sim\" acima"
 	
-        self.bt_confirma_temp.place(x=150, y=300)
-        self.bt_cancela_rampas = Button(conf_lupulo, text="Cancelar", width=30, height=5, command=conf_lupulo.destroy)
-        self.bt_cancela_rampas.place(x=450, y=300)
-        conf_lupulo.geometry("800x480+200+200")
-        
-        
+def ok():
+	print("Botao pressionado")
+	if(int(data['controle']) == 0):
+		fun.Liga(6)
+		firedb.pushData(key, "001", "controle")
+		ter.after(5000, checaSensores)
+	elif(int(data['controle']) == 2):
+		firedb.pushData(key, "100", "controle")
+		ter.after(5000, checaSensores)
+	elif(int(data['controle']) == 3):
+		firedb.pushData(key, "004", "controle")
+		fun.Liga(6)
+		ter.after(5000, fervura)
+	btnOk["state"] = "disabled"
+	atualizaMensagem()
+	tempo()
+	
+def tempo():
+	data = firedb.getData(key)
+	firedb.pushData(key, comand.tempoProcesso(data['tempoTotalRaw']), "tempoTotal")
+	if(int(data['controle']) > 100 and int(data['controle'])%2 == 1):
+		firedb.pushData(key, comand.tempoProcesso(data['tempoAtualRaw']), "tempoAtual")
+	if(int(data['controle']) >= 4 and int(data['controle']) < 100 and data['tempoAtualRaw'] != "0"):
+		firedb.pushData(key, comand.tempoProcesso(data['tempoAtualRaw']), "tempoAtual")
+	
+def checaSensores():
+	tempo()
+	data = firedb.getData(key)
+	print("Ler sensor de temperatura")
+	firedb.pushData(key, temp.read_temp(), "tempAtual")
+	if(data['rampAtTempe'] >= '''Valor do sensor - 2''' and data['rampAtTempe'] <= '''Valor do sensor + 2'''):
+		if(data['controle'] == "001"):
+			fun.Liga(13)
+			firedb.pushData(key, "002", "controle")
+			firedb.pushData(key, comand.mensagem("002"), "mensagem")
+		elif(int(data['controle']) > 100 and int(data['controle'])%2 == 0):
+			firedb.pushData(key, comand.tempoInicio(), "tempoAtualRaw")
+			firedb.pushData(key, (data['tempoAlc'] + str(comand.tempoProcesso(data['tempoTotalRaw'])) + "-"), "tempoAlc")
+			firedb.pushData(key, str(int(data['controle']) + 1), "controle")
+			firedb.pushData(key, comand.mensagem(str(int(data['controle']) + 1)), "mensagem")
+		elif(int(data['controle']) > 100 and int(data['controle'])%2 == 1):
+			if(data['tempoAtual'] == data['rampAtTempo']):
+				if(data['rampAtual'] == data['QntRamp']):
+					#COMECAR PROCESSO DE FERVURA
+					fun.Desliga(13)
+					fun.Desliga(6)
+					comand.configurarFervura(key, data['tempoLupulo'])
+					firedb.pushData(key, "003", "controle")
+					firedb.pushData(key, "Fervura", "rampAtual")
+					data = firedb.getData(key)
+					atualizaMensagem()
+				else:
+					#troca de rampa
+					firedb.pushData(key, (data['tempAlc'] + str(comand.tempoProcesso(data['tempoTotalRaw'])) + "/"), "tempoAlc")
+					firedb.pushData(key, (int(data['rampAtual']) + 1), "rampAtual")
+					comand.configurarRampa(key, (int(data['rampAtual']) + 1), data['tempPro'])
+					firedb.pushData(key, (str(int(data['rampAtual']) + 1) + "00"), "controle")
+					firedb.pushData(key, comand.mensagem((str(int(data['rampAtual']) + 1) + "00")), "mensagem")
+					firedb.pushData(key, "0", "tempoAtual")
+	if(data['controle'] == "000" or data['controle'] == "002" or data['controle'] == "003"):
+		btnOk["state"] = "enabled"
+	if(btnOk["state"] == "disabled"):
+		#CONTROLE DE CHAMA
+		ter.after(5000, checaSensores)
+		
+def fervura():
+	tempo()
+	firedb.pushData(key, temp.read_temp(), "tempAtual")
+	if(data['rampAtTemp'] >= '''Valor do sensor - 1''' and data['rampAtTemp'] <= '''Valor do sensor + 1'''):
+		firedb.pushData(key, comand.tempoInicio(), "tempoAtualRaw")
+		firedb.pushData(key, (data['tempoLupulo'] + str(comand.tempoProcesso(data['tempoTotalRaw'])) + "/"), "tempoLupulo")
+		#CONTROLE DE CHAMA PARA FICAR EM CHAMA MEDIA
+		ter.after(5000, lupulo)	
+	else:
+		#CONTROLE DE CHAMA
+		ter.after(5000, fervura)
+	
+def lupulo():
+	tempo()
+	
+	fun.Desliga(6)
+	tempLupulos = data['tempoLupulo'].split('*')
+	tempLupulos = tempLupulos[0]
+	tempLupulos = tempLupulos.split('-')
+	tamanho = len(tempLupulos)
+	contador = 0
+	while(contador < tamanho):
+		if(tempLupulos[contador] == data['tempoAtual']):
+			#ALERTA
+			firedb.pushData(key, comand.mensagem("0"+str(contador+1)+"4"), "mensagem")
+			mens = data['tempoLupulo'].split('*')
+			mens = mens[1]
+			try:
+				mens = mens.split('/')
+				taman = len(mens)
+				if(mens[taman-2] != data['tempoAtual']):
+					firedb.pushData(key, data['tempoLupulo'] + data['tempoAtual'] + "/", "tempoLupulo")
+			except:
+				firedb.pushData(key, data['tempoLupulo'] + data['tempoAtual'] + "/", "tempoLupulo")
+	if(data['tempoAtual'] == data['rampAtTempo']):
+		#DESLIGA CHAMA
+		firedb.pushData(key, "005", "controle")
+		firedb.pushData(key, data['tempoLupulo'] + data['tempoAtual'], "tempoLupulo")	
+		atualizaMensagem()
+	else:
+		ter.after(5000, lupulo)
+		
+def atualizaMensagem():
+	data = firedb.getData(key)
+	firedb.pushData(key, comand.mensagem(data['controle']), "mensagem")
 
+##################  PRIMEIRA TELA  ##################  
+pri = Tk()
+imagem = PhotoImage(file="TelaIHM.png")
+img = Label(pri, image=imagem)
+img.imagem = imagem
+img.place(x=0, y=0)
 
-root = Tk()
-root.title("Automação Brassagem e Fervura")
-principal(root)
-
-#imagem = PhotoImage(file="TelaIHM.png")
-#img = Label(root, image=imagem)
-#img.imagem = imagem
-#img.place(x=0, y=0)
-
-margem = Label(root, height=7)
+margem = Label(pri, height=7)
 margem.pack(anchor=W)
 
-root.geometry("800x480+200+200")
-root.mainloop()
+lb = Label(pri, text="O numero da sua maquina e "+key,font=("Arial", 30, "bold"), height=2)
+lb.pack()
+btnConf = Button(pri,text="Ok", font=("Arial",20,"bold"), width=10, height=2, command=conta)
+btnConf.pack()
+lbResul = Label(pri, text="",font=("Arial",20,"bold"), height = 2)
+lbResul.pack()
+lbExpl = Label(pri, text="",font=("Arial",20,"bold"), height = 1)
+lbExpl.pack()
+
+pri.geometry("800x480+200+200")
+pri.mainloop()
+
+##################  SEGUNDA TELA ##################  
+
+seg = Tk()
+imagem = PhotoImage(file="TelaIHM.png")
+img = Label(seg, image=imagem)
+img.imagem = imagem
+img.place(x=0, y=0)
+
+margem_seg = Label(seg, height=7)
+margem_seg.pack(anchor=W)
+
+lb_seg = Label(seg, text="Ja foi feita a programacao da receita pelo app?",font=("Arial", 20, "bold"), height=2)
+lb_seg.pack()
+btnConf_seg = Button(seg,text="Sim", font=("Arial",20,"bold"), width=10, height=2, command=sim)
+btnConf_seg.place(x = 150, y = 180)
+btnNeg_seg = Button(seg,text="Nao", font=("Arial",20,"bold"), width=10, height=2, command=nao)
+btnNeg_seg.place(x = 450, y = 180)
+espaco_seg = Label(seg, height=7)
+espaco_seg.pack()
+lbResul_seg = Label(seg, text="",font=("Arial",20,"bold"), height = 2)
+lbResul_seg.pack()
+lbExpl_seg = Label(seg, text="",font=("Arial",20,"bold"), height = 1)
+lbExpl_seg.pack()
+
+seg.geometry("800x480+200+200")
+seg.mainloop()
+
+############## INICIO DA CONFIGURACAO ###############
+
+firedb.pushData(key, 1, "rampAtual")
+data = firedb.getData(key)
+firedb.pushData(key, comand.mensagem(data['controle']), "mensagem")
+comand.configurarRampa(key, 1, data['tempPro'])
+firedb.pushData(key, 0, "tempoAtual")
+firedb.pushData(key, 0, "tempoTotal")
+firedb.confTempo()
+firedb.pushData(key, comand.tempoInicio(), "tempoTotalRaw")
+
+##################  TERCEIRA TELA  ##################  
+
+ter = Tk()
+imagem = PhotoImage(file="TelaIHM.png")
+img = Label(ter, image=imagem)
+img.imagem = imagem
+img.place(x=0, y=0)
+
+margem_ter = Label(ter, height=7)
+margem_ter.pack(anchor=W)
+
+lbNome = Label(ter, text = data['name'], font=("Arial",15,"bold"))
+lbNome.pack()
+lbNome['text'] = data['name']
+lbTemp = Label(ter, text="Temperatura atual do processo:", font=("Arial",20,"bold"))
+lbTemp.pack()
+Temp = Label(ter, text=data['tempAtual'], font=("Arial",30,"bold"))
+Temp.pack()
+lbGraus = Label(ter, text="C", font=("Arial",30,"bold"))
+lbGraus.place(x=450,y=135)
+lbRamp = Label(ter, text="Rampa atual:", font=("Arial",15,"bold"))
+lbRamp.pack()
+Ramp = Label(ter, text=data['rampAtual'], font=("Arial",15,"bold"))
+Ramp.place(x=480,y=183)
+Aviso = Label(ter, text ="Para mais informacoes consulte o app", font=("Arial",20,"bold"), height=2)
+Aviso.pack()
+btnOk = Button(ter, text="OK", font=("Arial",20,"bold"), width=10, height=2, command=ok, state="enabled")
+btnOk.pack()
+
+ter.after(100, checaSensores)
+
+ter.geometry("800x480+200+200")
+ter.mainloop()
