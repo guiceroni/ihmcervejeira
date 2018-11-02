@@ -5,7 +5,7 @@ import temperatura as temp
 import Funcoes as fun
 import Configuracoes as conf
 
-key = "7757"
+key = "5555"
 data = ""
 
 def conta():
@@ -27,15 +27,15 @@ def nao():
 	
 def ok():
 	print("Botao pressionado")
-	if(int(data['comando']) == 0):
+	if(int(data['controle']) == 0):
 		fun.Liga(6)
-		firedb.pushData(key, "001", "comando")
+		firedb.pushData(key, "001", "controle")
 		ter.after(5000, checaSensores)
-	elif(int(data['comando']) == 2):
-		firedb.pushData(key, "100", "comando")
+	elif(int(data['controle']) == 2):
+		firedb.pushData(key, "100", "controle")
 		ter.after(5000, checaSensores)
-	elif(int(data['comando']) == 3):
-		firedb.pushData(key, "004", "comando")
+	elif(int(data['controle']) == 3):
+		firedb.pushData(key, "004", "controle")
 		fun.Liga(6)
 		ter.after(5000, fervura)
 	btnOk["state"] = "disabled"
@@ -45,7 +45,7 @@ def ok():
 def tempo():
 	data = firedb.getData(key)
 	firedb.pushData(key, comand.tempoProcesso(data['tempoTotalRaw']), "tempoTotal")
-	if(int(data['comando']) > 100 and int(data['comando'])%2 == 1):
+	if(int(data['controle']) > 100 and int(data['controle'])%2 == 1):
 		firedb.pushData(key, comand.tempoProcesso(data['tempoAtualRaw']), "tempoAtual")
 	if(int(data['controle']) >= 4 and int(data['controle']) < 100 and data['tempoAtualRaw'] != "0"):
 		firedb.pushData(key, comand.tempoProcesso(data['tempoAtualRaw']), "tempoAtual")
@@ -56,16 +56,16 @@ def checaSensores():
 	print("Ler sensor de temperatura")
 	firedb.pushData(key, temp.read_temp(), "tempAtual")
 	if(data['rampAtTempe'] >= '''Valor do sensor - 2''' and data['rampAtTempe'] <= '''Valor do sensor + 2'''):
-		if(data['comando'] == "001"):
+		if(data['controle'] == "001"):
 			fun.Liga(13)
-			firedb.pushData(key, "002", "comando")
+			firedb.pushData(key, "002", "controle")
 			firedb.pushData(key, comand.mensagem("002"), "mensagem")
-		elif(int(data['comando']) > 100 and int(data['comando'])%2 == 0):
+		elif(int(data['controle']) > 100 and int(data['controle'])%2 == 0):
 			firedb.pushData(key, comand.tempoInicio(), "tempoAtualRaw")
 			firedb.pushData(key, (data['tempoAlc'] + str(comand.tempoProcesso(data['tempoTotalRaw'])) + "-"), "tempoAlc")
-			firedb.pushData(key, str(int(data['comando']) + 1), "comando")
-			firedb.pushData(key, comand.mensagem(str(int(data['comando']) + 1)), "mensagem")
-		elif(int(data['comando']) > 100 and int(data['comando'])%2 == 1):
+			firedb.pushData(key, str(int(data['controle']) + 1), "controle")
+			firedb.pushData(key, comand.mensagem(str(int(data['controle']) + 1)), "mensagem")
+		elif(int(data['controle']) > 100 and int(data['controle'])%2 == 1):
 			if(data['tempoAtual'] == data['rampAtTempo']):
 				if(data['rampAtual'] == data['QntRamp']):
 					#COMECAR PROCESSO DE FERVURA
@@ -84,7 +84,7 @@ def checaSensores():
 					firedb.pushData(key, (str(int(data['rampAtual']) + 1) + "00"), "controle")
 					firedb.pushData(key, comand.mensagem((str(int(data['rampAtual']) + 1) + "00")), "mensagem")
 					firedb.pushData(key, "0", "tempoAtual")
-	if(data['comando'] == "000" or data['comando'] == "002" or data['comando'] == "003"):
+	if(data['controle'] == "000" or data['controle'] == "002" or data['controle'] == "003"):
 		btnOk["state"] = "enabled"
 	if(btnOk["state"] == "disabled"):
 		#CONTROLE DE CHAMA
@@ -134,7 +134,7 @@ def lupulo():
 		
 def atualizaMensagem():
 	data = firedb.getData(key)
-	firedb.pushData(key, comand.mensagem(data['comando']), "mensagem")
+	firedb.pushData(key, comand.mensagem(data['controle']), "mensagem")
 
 ##################  PRIMEIRA TELA  ##################  
 pri = Tk()
@@ -189,7 +189,7 @@ seg.mainloop()
 
 firedb.pushData(key, 1, "rampAtual")
 data = firedb.getData(key)
-firedb.pushData(key, comand.mensagem(data['comando']), "mensagem")
+firedb.pushData(key, comand.mensagem(data['controle']), "mensagem")
 comand.configurarRampa(key, 1, data['tempPro'])
 firedb.pushData(key, 0, "tempoAtual")
 firedb.pushData(key, 0, "tempoTotal")
