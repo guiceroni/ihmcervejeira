@@ -29,18 +29,24 @@ def getConta(key):
 def getData(key):
 	print("***Def getData***")
 	conta = getConta(key)
-	data = db.child(conta + "/produzindo").get()
-
+	data = db.child(conta).child("/produzindo").get()
+	
 	for user in data.each():
 		resul = user.val()
-
+	
 	return resul
 	
 def pushData(key, data, local):
 	print("***Def pushData***")
 	conta = getConta(key)
-	db.child(conta).child("produzindo").update({local: data})
+	chave = db.child(conta).child("/produzindo").shallow().get()
+	chave = chave.each()
+	chave = chave[0]
+	db.child(conta).child("produzindo").child(chave).update({local: data})
 
 def confTempo():	
-	db.child(key).child("produzindo").set({tempoAtualRaw: ""})
-	db.child(key).child("produzindo").set({tempoTotalRaw: ""})
+	chave = db.child(conta).child("/produzindo").shallow().get()
+	chave = chave.each()
+	chave = chave[0]
+	db.child(key).child("produzindo").child(chave).set({tempoAtualRaw: ""})
+	db.child(key).child("produzindo").child(chave).set({tempoTotalRaw: ""})
