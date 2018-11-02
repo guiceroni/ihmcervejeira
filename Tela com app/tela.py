@@ -1,6 +1,9 @@
 from tkinter import *
 import firedb
 import comandos as comand
+import temperatura as temp
+import Funcoes as fun
+import Configuracoes as conf
 
 key = "7757"
 data = ""
@@ -15,9 +18,6 @@ def conta():
 		lbExpl["text"] = ""
 		pri.destroy()
 	
-def data():
-	data = firedb.getData(key)
-	
 def sim():
 	seg.destroy()
 
@@ -28,6 +28,7 @@ def nao():
 def ok():
 	print("Botao pressionado")
 	if(int(data['comando']) == 0):
+		fun.Liga(6)
 		firedb.pushData(key, "001", "comando")
 		ter.after(5000, checaSensores)
 	elif(int(data['comando']) == 2):
@@ -35,6 +36,7 @@ def ok():
 		ter.after(5000, checaSensores)
 	elif(int(data['comando']) == 3):
 		firedb.pushData(key, "004", "comando")
+		fun.Liga(6)
 		ter.after(5000, fervura)
 	btnOk["state"] = "disabled"
 	atualizaMensagem()
@@ -50,10 +52,12 @@ def tempo():
 	
 def checaSensores():
 	tempo()
+	data = firedb.getData(key)
 	print("Ler sensor de temperatura")
-	#firedb.pushData(key, PEGAR VALOR DO SENSOR, "tempAtual")
-	if(data['rampAtTempe'] >= '''Valor do sensor - 2''' && data['rampAtTempe'] <= '''Valor do sensor + 2'''):
+	firedb.pushData(key, temp.read_temp(), "tempAtual")
+	if(data['rampAtTempe'] >= '''Valor do sensor - 2''' and data['rampAtTempe'] <= '''Valor do sensor + 2'''):
 		if(data['comando'] == "001"):
+			fun.Liga(13)
 			firedb.pushData(key, "002", "comando")
 			firedb.pushData(key, comand.mensagem("002"), "mensagem")
 		elif(int(data['comando']) > 100 and int(data['comando'])%2 == 0):
@@ -65,6 +69,8 @@ def checaSensores():
 			if(data['tempoAtual'] == data['rampAtTempo']):
 				if(data['rampAtual'] == data['QntRamp']):
 					#COMECAR PROCESSO DE FERVURA
+					fun.Desliga(13)
+					fun.Desliga(6)
 					comand.configurarFervura(key, data['tempoLupulo'])
 					firedb.pushData(key, "003", "controle")
 					firedb.pushData(key, "Fervura", "rampAtual")
@@ -86,7 +92,7 @@ def checaSensores():
 		
 def fervura():
 	tempo()
-	#firedb.pushData(key, PEGAR VALOR DO SENSOR, "tempAtual")
+	firedb.pushData(key, temp.read_temp(), "tempAtual")
 	if(data['rampAtTemp'] >= '''Valor do sensor - 1''' and data['rampAtTemp'] <= '''Valor do sensor + 1'''):
 		firedb.pushData(key, comand.tempoInicio(), "tempoAtualRaw")
 		firedb.pushData(key, (data['tempoLupulo'] + str(comand.tempoProcesso(data['tempoTotalRaw'])) + "/"), "tempoLupulo")
@@ -99,13 +105,14 @@ def fervura():
 def lupulo():
 	tempo()
 	
+	fun.Desliga(6)
 	tempLupulos = data['tempoLupulo'].split('*')
 	tempLupulos = tempLupulos[0]
 	tempLupulos = tempLupulos.split('-')
-	tamanho = len(tempoLupulos)
+	tamanho = len(tempLupulos)
 	contador = 0
 	while(contador < tamanho):
-		if(tempoLupulos[contador] == data['tempoAtual'])
+		if(tempLupulos[contador] == data['tempoAtual']):
 			#ALERTA
 			firedb.pushData(key, comand.mensagem("0"+str(contador+1)+"4"), "mensagem")
 			mens = data['tempoLupulo'].split('*')
@@ -215,7 +222,7 @@ Ramp = Label(ter, text=data['rampAtual'], font=("Arial",15,"bold"))
 Ramp.place(x=480,y=183)
 Aviso = Label(ter, text ="Para mais informacoes consulte o app", font=("Arial",20,"bold"), height=2)
 Aviso.pack()
-btnOk = Button(ter, text="OK", font=("Arial",20,"bold"), width=10, height=2, command=ok, state=enabled)
+btnOk = Button(ter, text="OK", font=("Arial",20,"bold"), width=10, height=2, command=ok, state="enabled")
 btnOk.pack()
 
 ter.after(100, checaSensores)
