@@ -44,9 +44,12 @@ def pushData(key, data, local):
 	chave = chave[0]
 	db.child(conta).child("produzindo").child(chave).update({local: data})
 
-def confTempo():	
+def confTempo(key):	
+	conta = getConta(key)
 	chave = db.child(conta).child("/produzindo").shallow().get()
 	chave = chave.each()
 	chave = chave[0]
-	db.child(key).child("produzindo").child(chave).set({tempoAtualRaw: ""})
-	db.child(key).child("produzindo").child(chave).set({tempoTotalRaw: ""})
+	tempoAtualRaw = ""
+	tempoTotalRaw = ""
+	db.child(key).child("produzindo").child(chave).update({tempoAtualRaw: ""})
+	db.child(key).child("produzindo").child(chave).update({tempoTotalRaw: ""})

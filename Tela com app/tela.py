@@ -26,15 +26,17 @@ def nao():
 	lbExpl_seg["text"] = "e depois clique no botao \"Sim\" acima"
 	
 def ok():
+	data = firedb.getData(key)
 	print("Botao pressionado")
-	if(int(data['controle']) == 0):
+	print(data['controle'])
+	if(data['controle'] == "000"):
 		fun.Liga(6)
 		firedb.pushData(key, "001", "controle")
 		ter.after(5000, checaSensores)
-	elif(int(data['controle']) == 2):
+	elif(data['controle'] == "002"):
 		firedb.pushData(key, "100", "controle")
 		ter.after(5000, checaSensores)
-	elif(int(data['controle']) == 3):
+	elif(data['controle'] == "003"):
 		firedb.pushData(key, "004", "controle")
 		fun.Liga(6)
 		ter.after(5000, fervura)
@@ -55,18 +57,18 @@ def checaSensores():
 	data = firedb.getData(key)
 	print("Ler sensor de temperatura")
 	firedb.pushData(key, temp.read_temp(), "tempAtual")
-	if(data['rampAtTempe'] >= '''Valor do sensor - 2''' and data['rampAtTempe'] <= '''Valor do sensor + 2'''):
+	if(int(data['rampAtTempe']) >= int(temp.read_temp()) - 2 and int(data['rampAtTempe']) <= int(temp.read_temp()) + 2):
 		if(data['controle'] == "001"):
 			fun.Liga(13)
 			firedb.pushData(key, "002", "controle")
 			firedb.pushData(key, comand.mensagem("002"), "mensagem")
-		elif(int(data['controle']) > 100 and int(data['controle'])%2 == 0):
+		elif(int(data['controle']) >= 100 and int(data['controle'])%2 == 0):
 			firedb.pushData(key, comand.tempoInicio(), "tempoAtualRaw")
 			firedb.pushData(key, (data['tempoAlc'] + str(comand.tempoProcesso(data['tempoTotalRaw'])) + "-"), "tempoAlc")
 			firedb.pushData(key, str(int(data['controle']) + 1), "controle")
 			firedb.pushData(key, comand.mensagem(str(int(data['controle']) + 1)), "mensagem")
-		elif(int(data['controle']) > 100 and int(data['controle'])%2 == 1):
-			if(data['tempoAtual'] == data['rampAtTempo']):
+		elif(int(data['controle']) >= 100 and int(data['controle'])%2 == 1):
+			if(str(data['tempoAtual']) == data['rampAtTempo']):
 				if(data['rampAtual'] == data['QntRamp']):
 					#COMECAR PROCESSO DE FERVURA
 					fun.Desliga(13)
@@ -78,14 +80,14 @@ def checaSensores():
 					atualizaMensagem()
 				else:
 					#troca de rampa
-					firedb.pushData(key, (data['tempAlc'] + str(comand.tempoProcesso(data['tempoTotalRaw'])) + "/"), "tempoAlc")
+					firedb.pushData(key, (data['tempoAlc'] + str(comand.tempoProcesso(data['tempoTotalRaw'])) + "/"), "tempoAlc")
 					firedb.pushData(key, (int(data['rampAtual']) + 1), "rampAtual")
 					comand.configurarRampa(key, (int(data['rampAtual']) + 1), data['tempPro'])
 					firedb.pushData(key, (str(int(data['rampAtual']) + 1) + "00"), "controle")
 					firedb.pushData(key, comand.mensagem((str(int(data['rampAtual']) + 1) + "00")), "mensagem")
 					firedb.pushData(key, "0", "tempoAtual")
 	if(data['controle'] == "000" or data['controle'] == "002" or data['controle'] == "003"):
-		btnOk["state"] = "enabled"
+		btnOk["state"] = "active"
 	if(btnOk["state"] == "disabled"):
 		#CONTROLE DE CHAMA
 		ter.after(5000, checaSensores)
@@ -93,7 +95,7 @@ def checaSensores():
 def fervura():
 	tempo()
 	firedb.pushData(key, temp.read_temp(), "tempAtual")
-	if(data['rampAtTemp'] >= '''Valor do sensor - 1''' and data['rampAtTemp'] <= '''Valor do sensor + 1'''):
+	if(int(data['rampAtTemp']) >= int(temp.read_temp()) - 1 and int(data['rampAtTemp']) <= int(temp.read_temp()) + 1):
 		firedb.pushData(key, comand.tempoInicio(), "tempoAtualRaw")
 		firedb.pushData(key, (data['tempoLupulo'] + str(comand.tempoProcesso(data['tempoTotalRaw'])) + "/"), "tempoLupulo")
 		#CONTROLE DE CHAMA PARA FICAR EM CHAMA MEDIA
@@ -155,7 +157,7 @@ lbResul.pack()
 lbExpl = Label(pri, text="",font=("Arial",20,"bold"), height = 1)
 lbExpl.pack()
 
-pri.geometry("800x480+200+200")
+pri.geometry("800x480")
 pri.mainloop()
 
 ##################  SEGUNDA TELA ##################  
@@ -182,7 +184,7 @@ lbResul_seg.pack()
 lbExpl_seg = Label(seg, text="",font=("Arial",20,"bold"), height = 1)
 lbExpl_seg.pack()
 
-seg.geometry("800x480+200+200")
+seg.geometry("800x480")
 seg.mainloop()
 
 ############## INICIO DA CONFIGURACAO ###############
@@ -193,8 +195,9 @@ firedb.pushData(key, comand.mensagem(data['controle']), "mensagem")
 comand.configurarRampa(key, 1, data['tempPro'])
 firedb.pushData(key, 0, "tempoAtual")
 firedb.pushData(key, 0, "tempoTotal")
-firedb.confTempo()
+#firedb.confTempo(key)
 firedb.pushData(key, comand.tempoInicio(), "tempoTotalRaw")
+conf.inicio()
 
 ##################  TERCEIRA TELA  ##################  
 
@@ -222,10 +225,10 @@ Ramp = Label(ter, text=data['rampAtual'], font=("Arial",15,"bold"))
 Ramp.place(x=480,y=183)
 Aviso = Label(ter, text ="Para mais informacoes consulte o app", font=("Arial",20,"bold"), height=2)
 Aviso.pack()
-btnOk = Button(ter, text="OK", font=("Arial",20,"bold"), width=10, height=2, command=ok, state="enabled")
+btnOk = Button(ter, text="OK", font=("Arial",20,"bold"), width=10, height=2, command=ok, state="active")
 btnOk.pack()
 
 ter.after(100, checaSensores)
 
-ter.geometry("800x480+200+200")
+ter.geometry("800x480")
 ter.mainloop()
