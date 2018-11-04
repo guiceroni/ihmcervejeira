@@ -7,14 +7,14 @@ config = {
     "projectId": "loginemail-a0eb8",
     "storageBucket": "loginemail-a0eb8.appspot.com",
 	"messagingSenderId": "565232829032"
-};
+}
 
 firebase = pyrebase.initialize_app(config)
 
 db = firebase.database()
 
 def getConta(key):
-	print("***Def getConta***")
+	#print("***Def getConta***")
 	data = db.child("maquinas/" + key).get()
 	
 	print(data.val())
@@ -27,7 +27,7 @@ def getConta(key):
 	return conta
 	
 def getData(key):
-	print("***Def getData***")
+	#print("***Def getData***")
 	conta = getConta(key)
 	data = db.child(conta).child("/produzindo").get()
 	
@@ -37,7 +37,7 @@ def getData(key):
 	return resul
 	
 def pushData(key, data, local):
-	print("***Def pushData***")
+	#print("***Def pushData***")
 	conta = getConta(key)
 	chave = db.child(conta).child("/produzindo").shallow().get()
 	chave = chave.each()
@@ -51,5 +51,20 @@ def confTempo(key):
 	chave = chave[0]
 	tempoAtualRaw = ""
 	tempoTotalRaw = ""
-	db.child(key).child("produzindo").child(chave).update({tempoAtualRaw: ""})
-	db.child(key).child("produzindo").child(chave).update({tempoTotalRaw: ""})
+	db.child(conta).child("produzindo").child(chave).update({tempoAtualRaw: ""})
+	db.child(conta).child("produzindo").child(chave).update({tempoTotalRaw: ""})
+
+def finaliza(key):
+	conta = getConta(key)
+	data = getData(key)
+	db.child(conta).child("producoes").child(data['fKey']).update({'tempAlc': data['tempAlc']})
+	db.child(conta).child("producoes").child(data['fKey']).update({'tempLupulo': data['tempLupulo']})
+	db.child(conta).child("producoes").child(data['fKey']).update({'tempoTot': data['tempoTotal']})
+	db.child(conta).child("produzindo").remove()
+
+def relatorio(key):
+	conta = getConta(key)
+	data = getData(key)
+	db.child(conta).child("producoes").child(data['fKey']).update({'tempAlc': data['tempAlc']})
+	db.child(conta).child("producoes").child(data['fKey']).update({'tempLupulo': data['tempLupulo']})
+	db.child(conta).child("producoes").child(data['fKey']).update({'tempoTot': data['tempoTotal']})

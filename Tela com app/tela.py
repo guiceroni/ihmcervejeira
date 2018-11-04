@@ -40,12 +40,16 @@ def ok():
 		firedb.pushData(key, "004", "controle")
 		fun.Liga(6)
 		ter.after(5000, fervura)
+	elif(data['controle'] == "005"):
+		firedb.finaliza(key)
 	btnOk["state"] = "disabled"
 	atualizaMensagem()
 	tempo()
 	
 def tempo():
+	print("Atualizando Tempo")
 	data = firedb.getData(key)
+	Temp['text'] = data['tempAtual']
 	firedb.pushData(key, comand.tempoProcesso(data['tempoTotalRaw']), "tempoTotal")
 	if(int(data['controle']) > 100 and int(data['controle'])%2 == 1):
 		firedb.pushData(key, comand.tempoProcesso(data['tempoAtualRaw']), "tempoAtual")
@@ -58,6 +62,7 @@ def checaSensores():
 	print("Ler sensor de temperatura")
 	firedb.pushData(key, temp.read_temp(), "tempAtual")
 	if(int(data['rampAtTempe']) >= int(temp.read_temp()) - 2 and int(data['rampAtTempe']) <= int(temp.read_temp()) + 2):
+		print("Mantendo temperatura")
 		if(data['controle'] == "001"):
 			fun.Liga(13)
 			firedb.pushData(key, "002", "controle")
@@ -67,10 +72,13 @@ def checaSensores():
 			firedb.pushData(key, (data['tempoAlc'] + str(comand.tempoProcesso(data['tempoTotalRaw'])) + "-"), "tempoAlc")
 			firedb.pushData(key, str(int(data['controle']) + 1), "controle")
 			firedb.pushData(key, comand.mensagem(str(int(data['controle']) + 1)), "mensagem")
+			fun.Alarme()
 		elif(int(data['controle']) >= 100 and int(data['controle'])%2 == 1):
 			if(str(data['tempoAtual']) == data['rampAtTempo']):
 				if(data['rampAtual'] == data['QntRamp']):
 					#COMECAR PROCESSO DE FERVURA
+					print("Comecando etapa de fervura")
+					fun.Alarme()
 					fun.Desliga(13)
 					fun.Desliga(6)
 					comand.configurarFervura(key, data['tempoLupulo'])
@@ -80,6 +88,8 @@ def checaSensores():
 					atualizaMensagem()
 				else:
 					#troca de rampa
+					print("Trocando de rampa")
+					fun.Alarme()
 					firedb.pushData(key, (data['tempoAlc'] + str(comand.tempoProcesso(data['tempoTotalRaw'])) + "/"), "tempoAlc")
 					firedb.pushData(key, (int(data['rampAtual']) + 1), "rampAtual")
 					comand.configurarRampa(key, (int(data['rampAtual']) + 1), data['tempPro'])
@@ -99,7 +109,8 @@ def fervura():
 		firedb.pushData(key, comand.tempoInicio(), "tempoAtualRaw")
 		firedb.pushData(key, (data['tempoLupulo'] + str(comand.tempoProcesso(data['tempoTotalRaw'])) + "/"), "tempoLupulo")
 		#CONTROLE DE CHAMA PARA FICAR EM CHAMA MEDIA
-		ter.after(5000, lupulo)	
+		fun.Alarme()
+		ter.after(5000, lupulo)
 	else:
 		#CONTROLE DE CHAMA
 		ter.after(5000, fervura)
@@ -115,7 +126,7 @@ def lupulo():
 	contador = 0
 	while(contador < tamanho):
 		if(tempLupulos[contador] == data['tempoAtual']):
-			#ALERTA
+			fun.Alarme()
 			firedb.pushData(key, comand.mensagem("0"+str(contador+1)+"4"), "mensagem")
 			mens = data['tempoLupulo'].split('*')
 			mens = mens[1]
@@ -128,9 +139,11 @@ def lupulo():
 				firedb.pushData(key, data['tempoLupulo'] + data['tempoAtual'] + "/", "tempoLupulo")
 	if(data['tempoAtual'] == data['rampAtTempo']):
 		#DESLIGA CHAMA
+		fun.Alarme()
 		firedb.pushData(key, "005", "controle")
 		firedb.pushData(key, data['tempoLupulo'] + data['tempoAtual'], "tempoLupulo")	
 		atualizaMensagem()
+		btnOk["state"] = "active"
 	else:
 		ter.after(5000, lupulo)
 		
@@ -195,7 +208,7 @@ firedb.pushData(key, comand.mensagem(data['controle']), "mensagem")
 comand.configurarRampa(key, 1, data['tempPro'])
 firedb.pushData(key, 0, "tempoAtual")
 firedb.pushData(key, 0, "tempoTotal")
-#firedb.confTempo(key)
+firedb.confTempo(key)
 firedb.pushData(key, comand.tempoInicio(), "tempoTotalRaw")
 conf.inicio()
 
@@ -218,11 +231,11 @@ lbTemp.pack()
 Temp = Label(ter, text=data['tempAtual'], font=("Arial",30,"bold"))
 Temp.pack()
 lbGraus = Label(ter, text="C", font=("Arial",30,"bold"))
-lbGraus.place(x=450,y=135)
+lbGraus.place(x=450,y=140)
 lbRamp = Label(ter, text="Rampa atual:", font=("Arial",15,"bold"))
 lbRamp.pack()
 Ramp = Label(ter, text=data['rampAtual'], font=("Arial",15,"bold"))
-Ramp.place(x=480,y=183)
+Ramp.place(x=480,y=188)
 Aviso = Label(ter, text ="Para mais informacoes consulte o app", font=("Arial",20,"bold"), height=2)
 Aviso.pack()
 btnOk = Button(ter, text="OK", font=("Arial",20,"bold"), width=10, height=2, command=ok, state="active")
