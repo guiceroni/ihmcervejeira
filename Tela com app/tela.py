@@ -50,6 +50,7 @@ def tempo():
 	print("Atualizando Tempo")
 	data = firedb.getData(key)
 	Temp['text'] = data['tempAtual']
+	Ramp['text'] = data['rampAtual']
 	firedb.pushData(key, comand.tempoProcesso(data['tempoTotalRaw']), "tempoTotal")
 	if(int(data['controle']) > 100 and int(data['controle'])%2 == 1):
 		firedb.pushData(key, comand.tempoProcesso(data['tempoAtualRaw']), "tempoAtual")
@@ -186,6 +187,7 @@ lbExpl = Label(pri, text="",font=("Arial",20,"bold"), height = 1)
 lbExpl.pack()
 
 pri.geometry("800x480")
+pri.attributes("-fullscreen", 1)
 pri.mainloop()
 
 ##################  SEGUNDA TELA ##################  
@@ -213,6 +215,7 @@ lbExpl_seg = Label(seg, text="",font=("Arial",20,"bold"), height = 1)
 lbExpl_seg.pack()
 
 seg.geometry("800x480")
+seg.attributes("-fullscreen", 1)
 seg.mainloop()
 
 ############## INICIO DA CONFIGURACAO ###############
@@ -246,11 +249,11 @@ lbTemp.pack()
 Temp = Label(ter, text=data['tempAtual'], font=("Arial",30,"bold"))
 Temp.pack()
 lbGraus = Label(ter, text="C", font=("Arial",30,"bold"))
-lbGraus.place(x=450,y=140)
+lbGraus.place(x=470,y=160)
 lbRamp = Label(ter, text="Rampa atual:", font=("Arial",15,"bold"))
 lbRamp.pack()
 Ramp = Label(ter, text=data['rampAtual'], font=("Arial",15,"bold"))
-Ramp.place(x=480,y=188)
+Ramp.place(x=480,y=210)
 Aviso = Label(ter, text ="Para mais informacoes consulte o app", font=("Arial",20,"bold"), height=2)
 Aviso.pack()
 btnOk = Button(ter, text="OK", font=("Arial",20,"bold"), width=10, height=2, command=ok, state="active")
@@ -259,4 +262,5 @@ btnOk.pack()
 ter.after(100, checaSensores)
 
 ter.geometry("800x480")
+ter.attributes("-fullscreen", 1)
 ter.mainloop()

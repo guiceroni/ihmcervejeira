@@ -58,7 +58,7 @@ def finaliza(key):
 	conta = getConta(key)
 	data = getData(key)
 	db.child(conta).child("producoes").child(data['fKey']).update({'tempAlc': data['tempoAlc']})
-	db.child(conta).child("producoes").child(data['fKey']).update({'tempLupulo': (data['rampAtTempo'] + "/" + data['tempLupulo'])})
+	db.child(conta).child("producoes").child(data['fKey']).update({'tempoLupulo': (data['rampAtTempo'] + "/" + data['tempoLupulo'])})
 	db.child(conta).child("producoes").child(data['fKey']).update({'tempoTot': data['tempoTotal']})
 	db.child(conta).child("produzindo").remove()
 
@@ -66,5 +66,5 @@ def relatorio(key):
 	conta = getConta(key)
 	data = getData(key)
 	db.child(conta).child("producoes").child(data['fKey']).update({'tempAlc': data['tempAlc']})
-	db.child(conta).child("producoes").child(data['fKey']).update({'tempLupulo': data['tempLupulo']})
+	db.child(conta).child("producoes").child(data['fKey']).update({'tempoLupulo': data['tempoLupulo']})
 	db.child(conta).child("producoes").child(data['fKey']).update({'tempoTot': data['tempoTotal']})
