@@ -17,13 +17,13 @@ def getConta(key):
 	#print("***Def getConta***")
 	data = db.child("maquinas/" + key).get()
 	
-	print(data.val())
+	#print(data.val())
 	
 	for user in data.each():
 		conta = user.val()
 
 	conta = str(conta)
-	print(conta)
+	#print(conta)
 	return conta
 	
 def getData(key):
@@ -51,14 +51,14 @@ def confTempo(key):
 	chave = chave[0]
 	tempoAtualRaw = ""
 	tempoTotalRaw = ""
-	db.child(conta).child("produzindo").child(chave).update({tempoAtualRaw: ""})
-	db.child(conta).child("produzindo").child(chave).update({tempoTotalRaw: ""})
+	db.child(conta).child("produzindo").child(chave).update({'tempoAtualRaw': '0'})
+	db.child(conta).child("produzindo").child(chave).update({'tempoTotalRaw': '0'})
 
 def finaliza(key):
 	conta = getConta(key)
 	data = getData(key)
-	db.child(conta).child("producoes").child(data['fKey']).update({'tempAlc': data['tempAlc']})
-	db.child(conta).child("producoes").child(data['fKey']).update({'tempLupulo': data['tempLupulo']})
+	db.child(conta).child("producoes").child(data['fKey']).update({'tempAlc': data['tempoAlc']})
+	db.child(conta).child("producoes").child(data['fKey']).update({'tempLupulo': (data['rampAtTempo'] + "/" + data['tempLupulo'])})
 	db.child(conta).child("producoes").child(data['fKey']).update({'tempoTot': data['tempoTotal']})
 	db.child(conta).child("produzindo").remove()
 

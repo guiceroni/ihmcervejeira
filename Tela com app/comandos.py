@@ -8,21 +8,21 @@ def mensagem(cod):
 		return "Esquentando agua"
 	if cod == "002":
 		return "Adicione o malte e precione OK"
+	if cod == "003":
+		return "Retire a primeira panela e lave o malte, retire a pa e precione OK"
+	if cod == "004":
+		return "Etapa da fervura"
+	if int(cod) >= 14 and int(cod) < 100:
+		while int(cod) > 10:
+			cod = int(cod) - 10 
+		return ("Emulsione o lupulo " + str(int(cod) - 3))
+	if cod == "005":
+		return "Agora eh com voce, resfrie-a, adicione o fermento e coloque no fermentador"
 	if (int(cod) % 2) == 1:
 		return "Mantendo temperatura desejada"
 	if (int(cod) % 2) == 0:
 		return "Aquecendo agua"
-	if cod == "003":
-		return "Retire e lave o malte, retire a pa e apos isso precione OK"
-	if cod == "004":
-		return "Etapa da fervura"
-	if int(cod) >= 14:
-		while int(cod) > 10:
-			cod = int(cod) - 10 
-		return ("Emulsione o lupulo " + str(int(cod) - 3))
-	if cod == 5:
-		return "Agora eh com voce, resfrie-a, adicione o fermento e coloque no fermentador"
-
+	
 def tempoInicio():
 	now = datetime.now()
 	
@@ -53,8 +53,8 @@ def configurarFervura(key, data):
 	rampa = data.split('/')
 	tempo = rampa[0]
 	lupulo = rampa[1]
-	firedb.pushData(key, tempo, "rampAtualTempo")
-	firedb.pushData(key, "96.5", "rampAtTempe")
+	firedb.pushData(key, tempo, "rampAtTempo")
+	firedb.pushData(key, "96", "rampAtTempe")
 	firedb.pushData(key, lupulo, "tempoLupulo")
 	return 0
 	

@@ -81,11 +81,14 @@ def checaSensores():
 					fun.Alarme()
 					fun.Desliga(13)
 					fun.Desliga(6)
+					firedb.pushData(key, (data['tempoAlc'] + str(comand.tempoProcesso(data['tempoTotalRaw']))), "tempoAlc")
 					comand.configurarFervura(key, data['tempoLupulo'])
 					firedb.pushData(key, "003", "controle")
 					firedb.pushData(key, "Fervura", "rampAtual")
 					data = firedb.getData(key)
-					atualizaMensagem()
+					firedb.pushData(key, comand.mensagem("003"), "mensagem")
+					firedb.pushData(key, "0", "tempoAtual")
+					firedb.pushData(key, "0", "tempoAtualRaw")
 				else:
 					#troca de rampa
 					print("Trocando de rampa")
@@ -103,9 +106,13 @@ def checaSensores():
 		ter.after(5000, checaSensores)
 		
 def fervura():
+	print("Fervura")
 	tempo()
 	firedb.pushData(key, temp.read_temp(), "tempAtual")
-	if(int(data['rampAtTemp']) >= int(temp.read_temp()) - 1 and int(data['rampAtTemp']) <= int(temp.read_temp()) + 1):
+	data = firedb.getData(key)
+	print(int(data['rampAtTempe']))
+	print(int(temp.read_temp()))
+	if(int(data['rampAtTempe']) >= int(temp.read_temp()) - 1 and int(data['rampAtTempe']) <= int(temp.read_temp()) + 1):
 		firedb.pushData(key, comand.tempoInicio(), "tempoAtualRaw")
 		firedb.pushData(key, (data['tempoLupulo'] + str(comand.tempoProcesso(data['tempoTotalRaw'])) + "/"), "tempoLupulo")
 		#CONTROLE DE CHAMA PARA FICAR EM CHAMA MEDIA
@@ -117,7 +124,8 @@ def fervura():
 	
 def lupulo():
 	tempo()
-	
+	data = firedb.getData(key)
+	print("Lupulo")
 	fun.Desliga(6)
 	tempLupulos = data['tempoLupulo'].split('*')
 	tempLupulos = tempLupulos[0]
@@ -125,7 +133,9 @@ def lupulo():
 	tamanho = len(tempLupulos)
 	contador = 0
 	while(contador < tamanho):
-		if(tempLupulos[contador] == data['tempoAtual']):
+		print(tempLupulos[contador])
+		print(data['tempoAtual'])
+		if(int(tempLupulos[contador]) == int(data['tempoAtual'])):
 			fun.Alarme()
 			firedb.pushData(key, comand.mensagem("0"+str(contador+1)+"4"), "mensagem")
 			mens = data['tempoLupulo'].split('*')
@@ -133,15 +143,20 @@ def lupulo():
 			try:
 				mens = mens.split('/')
 				taman = len(mens)
-				if(mens[taman-2] != data['tempoAtual']):
-					firedb.pushData(key, data['tempoLupulo'] + data['tempoAtual'] + "/", "tempoLupulo")
+				print(int(data['tempoTotal']))
+				print(int(mens[taman-2]))
+				if(int(mens[taman-2]) != int(data['tempoTotal'])):
+					firedb.pushData(key, data['tempoLupulo'] + str(data['tempoTotal']) + "/", "tempoLupulo")
+				else:
+					pass
 			except:
-				firedb.pushData(key, data['tempoLupulo'] + data['tempoAtual'] + "/", "tempoLupulo")
-	if(data['tempoAtual'] == data['rampAtTempo']):
+				firedb.pushData(key, data['tempoLupulo'] + data['tempoTotal'] + "/", "tempoLupulo")
+		contador = contador + 1
+	if(int(data['tempoAtual']) == int(data['rampAtTempo'])):
 		#DESLIGA CHAMA
 		fun.Alarme()
 		firedb.pushData(key, "005", "controle")
-		firedb.pushData(key, data['tempoLupulo'] + data['tempoAtual'], "tempoLupulo")	
+		firedb.pushData(key, data['tempoLupulo'] + str(data['tempoTotal']), "tempoLupulo")	
 		atualizaMensagem()
 		btnOk["state"] = "active"
 	else:
