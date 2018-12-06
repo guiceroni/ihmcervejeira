@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+import time
 
 
 limite = 1
@@ -611,8 +612,33 @@ class principal:
         self.bt_cancela_rampas = Button(conf_lupulo, text="Cancelar", width=30, height=5, command=conf_lupulo.destroy)
         self.bt_cancela_rampas.place(x=450, y=300)
         conf_lupulo.geometry("800x480+200+200")
-        
-        
+
+
+
+	def Liga(x):
+	    pin.output(x, pin.HIGH)
+
+	def Desliga(x):
+	    pin.output(x, pin.LOW)
+
+	def Le(x):
+	    return pin.input(x)
+
+	def PassoF():
+		pin.output(21, pin.HIGH)
+		time.sleep(0.1)
+		pin.output(21, pin.LOW)
+
+	def PassoT():
+		pin.output(26, pin.HIGH)
+		time.sleep(0.1)
+		pin.output(26, pin.LOW)
+
+	def Alarme():
+		pin.output(22, pin.HIGH)
+		time.sleep(0.1)
+	pin.output(22, pin.LOW)
+
 
 
 root = Tk()
